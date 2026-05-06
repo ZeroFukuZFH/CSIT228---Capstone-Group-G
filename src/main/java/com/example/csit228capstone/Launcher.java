@@ -1,9 +1,7 @@
-package com.example.csit228capstone;
-
-import javafx.application.Application;
+package org.CSIT228CAPSTONE;
 
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(MainViewApplication.class, args);
+        MainViewAccount.main(args);
     }
 }
