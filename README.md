@@ -7,7 +7,6 @@
 	- Dumasig, Jasper Reden B.
 	- Villegas, Albert Matthew V.
 	- Diaquino, Dan Emmanuel T.
-    - Sumabal, Jimrich Lawrence G.
 
 ## Project Description
 Expense Tracker is a desktop application developed using JavaFX that allows users to record, manage, and monitor their daily expenses. The system helps users organize their spending by categories and track their financial habits over time.
