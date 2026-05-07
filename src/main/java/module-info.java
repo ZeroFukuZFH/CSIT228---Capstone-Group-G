@@ -8,4 +8,6 @@ module com.example.csit228capstone {
 
     opens com.example.csit228capstone to javafx.fxml;
     exports com.example.csit228capstone;
+    exports com.example.csit228capstone.controllers;
+    opens com.example.csit228capstone.controllers to javafx.fxml;
 }

@@ -21,7 +21,7 @@
                                 <ImageView fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <!-- You can use the same registration pic for now or your new logo later -->
-                                        <Image url="@../images/Registration.png" />
+                                        <Image url="@../assets/Registration.png" />
                                     </image>
                                 </ImageView>
                             </children>
