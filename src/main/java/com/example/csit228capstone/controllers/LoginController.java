@@ -44,7 +44,7 @@ public class LoginController {
 
     @FXML
     private void onSignUpClick(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/views/Registration.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/screens/Registration.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Create Account");
