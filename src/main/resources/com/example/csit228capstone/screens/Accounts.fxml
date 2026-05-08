@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.AccountsController">
+    <children>
+        <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2d4538;">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+            <children>
+                <VBox alignment="CENTER" prefHeight="150.0">
+                    <children>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/Registration.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                    <VBox.margin><Insets bottom="30.0" /></VBox.margin>
+                </VBox>
+
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" onAction="#onBackToDashboard" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1; -fx-cursor: hand;" text="Dashboard" />
+
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" style="-fx-background-color: #5a8d73; -fx-text-fill: white; -fx-background-radius: 5;" text="Accounts">
+                    <font><Font name="System Bold" size="13.0" /></font>
+                    <padding><Insets bottom="10.0" left="15.0" top="10.0" /></padding>
+                </Button>
+
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1; -fx-cursor: hand;" text="Categories" />
+
+                <Separator opacity="0.1"><VBox.margin><Insets bottom="10.0" top="15.0" /></VBox.margin></Separator>
+
+                <Label text="Analytics" textFill="#8fb39e">
+                    <font><Font name="System Italic" size="11.0" /></font>
+                    <VBox.margin><Insets left="15.0" /></VBox.margin>
+                </Label>
+
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1; -fx-cursor: hand;" text="Cashflow" />
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1; -fx-cursor: hand;" text="Expenses" />
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1; -fx-cursor: hand;" text="Income" />
+
+                <Separator opacity="0.1"><VBox.margin><Insets bottom="10.0" top="15.0" /></VBox.margin></Separator>
+
+                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1; -fx-cursor: hand;" text="Options" />
+
+                <Region VBox.vgrow="ALWAYS" />
+                <Button maxWidth="Infinity" onAction="#onLogoutClick" style="-fx-background-color: transparent; -fx-text-fill: #e54b4b; -fx-cursor: hand;" text="Logout" />
+            </children>
+        </VBox>
+
+        <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <HBox spacing="10.0">
+                            <Button style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-cursor: hand;" text="⇆" />
+                            <Button style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-cursor: hand;" text="🏷" />
+                            <Button style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5; -fx-cursor: hand;" text="🏦" />
+                        </HBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button onAction="#onNewTransactionClick" style="-fx-background-color: #3d5a4a; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" text="+ New Transaction">
+                            <padding><Insets bottom="10.0" left="20.0" right="20.0" top="10.0" /></padding>
+                        </Button>
+                    </children>
+                </HBox>
+
+                <VBox spacing="25.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 10; -fx-padding: 40;" VBox.vgrow="ALWAYS">
+                    <children>
+                        <HBox alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Accounts" textFill="#2d4538">
+                                    <font><Font name="System Bold" size="30.0" /></font>
+                                </Label>
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button onAction="#onAddAccountClick" style="-fx-background-color: #2d4538; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" text="add account  +">
+                                    <padding><Insets bottom="10.0" left="20.0" right="20.0" top="10.0" /></padding>
+                                    <font><Font name="System Bold" size="13.0" /></font>
+                                </Button>
+                            </children>
+                        </HBox>
+
+                        <VBox spacing="15.0">
+                            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-border-color: #333; -fx-border-radius: 10; -fx-padding: 20;">
+                                <children>
+                                    <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #f0f0f0; -fx-background-radius: 25;">
+                                        <Label text="🏠" />
+                                    </VBox>
+                                    <Label text="account_name" textFill="#333">
+                                        <font><Font size="15.0" /></font>
+                                    </Label>
+                                    <Button style="-fx-background-color: white; -fx-border-color: #333; -fx-border-radius: 5;" text="default" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <VBox alignment="CENTER_RIGHT">
+                                        <Label text="Balance" textFill="#999" style="-fx-font-size: 11;"/>
+                                        <HBox alignment="CENTER_RIGHT" spacing="5">
+                                            <Label text="default_currency" style="-fx-font-weight: bold;"/>
+                                            <Label text="account_balance" textFill="#999" style="-fx-font-size: 11;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <Button onAction="#onEditAccount" style="-fx-background-color: transparent; -fx-cursor: hand;" text="✎" />
+                                    <Button onAction="#onDeleteAccount" style="-fx-background-color: transparent; -fx-cursor: hand;" text="🗑" />
+                                </children>
+                            </HBox>
+
+                            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-border-color: #eee; -fx-border-radius: 10; -fx-padding: 20;">
+                                <children>
+                                    <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #f9f9f9; -fx-background-radius: 25;">
+                                        <Label text="🏠" />
+                                    </VBox>
+                                    <Label text="account_name" textFill="#333">
+                                        <font><Font size="15.0" /></font>
+                                    </Label>
+                                    <Label onMouseClicked="#onSetDefault" style="-fx-cursor: hand;" text="set as default" textFill="#76b852">
+                                        <font><Font size="11.0" /></font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <VBox alignment="CENTER_RIGHT">
+                                        <Label text="Balance" textFill="#999" style="-fx-font-size: 11;"/>
+                                        <HBox alignment="CENTER_RIGHT" spacing="5">
+                                            <Label text="default_currency" style="-fx-font-weight: bold;"/>
+                                            <Label text="account_balance" textFill="#999" style="-fx-font-size: 11;"/>
+                                        </HBox>
+                                    </VBox>
+                                    <Region prefWidth="55" />
+                                </children>
+                            </HBox>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</HBox>
