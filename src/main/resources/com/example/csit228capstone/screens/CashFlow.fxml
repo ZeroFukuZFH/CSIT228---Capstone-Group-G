@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.CashFlowController">
+    <children>
+        <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2d5a42;">
+            <padding>
+                <Insets bottom="20.0" left="15.0" right="15.0" top="30.0" />
+            </padding>
+            <children>
+                <VBox alignment="CENTER" prefHeight="180.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15;">
+                    <children>
+                        <ImageView fx:id="logoImage" fitHeight="220.0" fitWidth="220.0" onMouseClicked="#handleLogoClick" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                            <image>
+                                <Image url="@../assets/Registration.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Dashboard" />
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Accounts" />
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Categories" />
+                    </children>
+                </VBox>
+
+                <Separator opacity="0.2">
+                    <VBox.margin><Insets bottom="10.0" top="10.0" /></VBox.margin>
+                </Separator>
+
+                <Label text="Analytics" textFill="#8fb39e">
+                    <font>
+                        <Font name="System Italic" size="12.0" />
+                    </font>
+                </Label>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #48a078; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-weight: bold;" text="Cashflow">
+                            <padding><Insets bottom="10.0" left="15.0" top="10.0" /></padding>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Expenses" />
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Income" />
+                    </children>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS" />
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Separator opacity="0.2" />
+                        <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Options" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                    <children>
+                        <Button onAction="#handleNewTransaction" style="-fx-background-color: #3a6351; -fx-text-fill: white; -fx-background-radius: 8;" text="+ New Transaction">
+                            <padding><Insets bottom="8.0" left="15.0" right="15.0" top="8.0" /></padding>
+                            <font><Font name="System Bold" size="13.0" /></font>
+                        </Button>
+                    </children>
+                </HBox>
+
+                <VBox spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Label text="Cashflow Overview" textFill="#2d5a42">
+                            <font><Font name="System Bold" size="20.0" /></font>
+                        </Label>
+
+                        <BarChart fx:id="barChart" animated="true" legendSide="BOTTOM" title="Income vs Expense">
+                            <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                            <yAxis><NumberAxis side="LEFT" /></yAxis>
+                        </BarChart>
+
+                        <HBox spacing="20" VBox.vgrow="ALWAYS">
+                            <children>
+                                <PieChart fx:id="incomePie" title="Income Sources" HBox.hgrow="ALWAYS" />
+                                <PieChart fx:id="expensePie" title="Expense Breakdown" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</HBox>
