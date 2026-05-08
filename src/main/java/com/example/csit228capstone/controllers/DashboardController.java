@@ -1,4 +1,4 @@
-package com.example.csit228capstone.views;
+package com.example.csit228capstone.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ public class DashboardController {
 
     @FXML
     private void onAccountsClick(ActionEvent event) {
-        navigateTo(event, "/com/example/csit228capstone/views/Accounts.fxml", "Smart Save - Accounts");
+        navigateTo(event, "/com/example/csit228capstone/screens/Accounts.fxml", "Smart Save - Accounts");
     }
 
     @FXML
@@ -26,7 +26,7 @@ public class DashboardController {
         try {
             URL resource = getClass().getResource(path);
             if (resource == null) {
-                resource = getClass().getResource(path.replace("/views/", "/"));
+                resource = getClass().getResource(path.replace("/controllers/", "/"));
             }
 
             if (resource == null) {

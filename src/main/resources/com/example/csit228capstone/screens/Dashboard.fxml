@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.views.DashboardController">
+<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.DashboardController">
     <children>
         <!-- Sidebar Navigation -->
         <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2d5a42;">
@@ -21,7 +21,7 @@
                     <children>
                         <ImageView fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../images/Registration.png" />
+                                <Image url="@../assets/Registration.png" />
                             </image>
                         </ImageView>
                     </children>
