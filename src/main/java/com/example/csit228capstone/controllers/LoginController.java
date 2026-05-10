@@ -30,8 +30,12 @@ public class LoginController {
 
         if (username.isEmpty() || password.isEmpty()) {
             System.out.println("Please enter both username and password.");
-        } else {
-            // "As if" success: Lahos dayon sa Dashboard
+            return;
+        }
+
+        Boolean status = true; // REPLACE WITH DATABASE AUTH LATER
+
+        if (status) {
             System.out.println("Login Success! Redirecting to Dashboard...");
 
             Parent dashboardRoot = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/screens/Dashboard.fxml"));
