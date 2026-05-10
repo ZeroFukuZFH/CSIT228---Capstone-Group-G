@@ -89,6 +89,9 @@
                         <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
                             <content>
                                 <VBox spacing="10.0">
+
+                                    <!-- SAMPLE DYNAMIC BOX -->
+
                                     <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="20.0" style="-fx-border-color: #f0f0f0; -fx-border-radius: 10; -fx-padding: 10;">
                                         <children>
                                             <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #f4f7f9; -fx-background-radius: 8;">
@@ -109,6 +112,8 @@
                                             </Label>
                                         </children>
                                     </HBox>
+
+                                    <!-- END OF SAMPLE BOX -->
                                 </VBox>
                             </content>
                         </ScrollPane>
