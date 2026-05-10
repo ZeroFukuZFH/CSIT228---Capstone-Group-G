@@ -1,125 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.DashboardController">
+<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.DashboardController">
     <children>
 
-        <fx:include source="Sidebar.fxml" fx:id="sidebar"/>
+        <fx:include fx:id="sidebar" source="Sidebar.fxml" />
         <!-- Main Content Area -->
         <VBox spacing="20.0" HBox.hgrow="ALWAYS">
             <padding>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
             <children>
-                <HBox alignment="CENTER_RIGHT" spacing="15.0">
-                    <children>
-                        <Button style="-fx-background-color: #3a6351; -fx-text-fill: white; -fx-background-radius: 8;" text="+ New Transaction">
-                            <padding><Insets bottom="8.0" left="15.0" right="15.0" top="8.0" /></padding>
-                        </Button>
-                    </children>
-                </HBox>
+                <fx:include source="ActionButtons.fxml" fx:id="actionbuttons"/>
 
-                <HBox prefHeight="180.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">
-                    <children>
-                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Label text="EXPENSE" textFill="#888888">
-                                    <font>
-                                        <Font name="System Bold" size="16.0" />
-                                    </font>
-                                </Label>
-                                <HBox alignment="CENTER" spacing="10.0">
-                                    <children>
-                                        <Label text="PHP" textFill="#666666" />
-                                        <Label text="0.00" textFill="#e54b4b">
-                                            <font>
-                                                <Font name="System Bold" size="32.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
+                <VBox prefHeight="610.0" prefWidth="790.0" >
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 
-                        <Line endY="100.0" stroke="#eeeeee" />
+                        <!-- ADD CONTENT HERE -->
 
-                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Label text="BALANCE" textFill="#888888">
-                                    <font>
-                                        <Font name="System Bold" size="16.0" />
-                                    </font>
-                                </Label>
-                                <HBox alignment="CENTER" spacing="10.0">
-                                    <children>
-                                        <Label text="PHP" textFill="#666666" />
-                                        <Label text="0.00" textFill="#2d5a42">
-                                            <font>
-                                                <Font name="System Bold" size="32.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
-
-                <VBox spacing="15.0" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20;">
-                    <children>
-                        <HBox alignment="CENTER_LEFT">
-                            <children>
-                                <Label text="Transactions">
-                                    <font>
-                                        <Font name="System Bold" size="22.0" />
-                                    </font>
-                                </Label>
-                                <Region HBox.hgrow="ALWAYS" />
-                                <TextField promptText="Search by title..." style="-fx-background-radius: 20; -fx-pref-width: 250;" />
-                            </children>
-                        </HBox>
-
-                        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
-                            <content>
-                                <VBox spacing="10.0">
-
-                                    <!-- SAMPLE DYNAMIC BOX -->
-
-                                    <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="20.0" style="-fx-border-color: #f0f0f0; -fx-border-radius: 10; -fx-padding: 10;">
-                                        <children>
-                                            <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #f4f7f9; -fx-background-radius: 8;">
-                                                <Label text="🏠" />
-                                            </VBox>
-                                            <VBox HBox.hgrow="ALWAYS">
-                                                <Label text="Rent Payment">
-                                                    <font>
-                                                        <Font name="System Bold" size="14.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label text="May 05, 2026" textFill="#aaaaaa" />
-                                            </VBox>
-                                            <Label text="- 5,000.00" textFill="#e54b4b">
-                                                <font>
-                                                    <Font name="System Bold" size="14.0" />
-                                                </font>
-                                            </Label>
-                                        </children>
-                                    </HBox>
-
-                                    <!-- END OF SAMPLE BOX -->
-                                </VBox>
-                            </content>
-                        </ScrollPane>
-                    </children>
+                    </padding>
                 </VBox>
             </children>
         </VBox>
     </children>
 </HBox>
+
+
