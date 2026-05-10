@@ -10,58 +10,8 @@
 
 <HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.DashboardController">
     <children>
-        <!-- Sidebar Navigation -->
-        <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2d5a42;">
-            <padding>
-                <Insets bottom="20.0" left="15.0" right="15.0" top="30.0" />
-            </padding>
-            <children>
-                <!-- Logo Area -->
-                <VBox alignment="CENTER" prefHeight="180.0" style="-fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 15;">
-                    <children>
-                        <ImageView fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../assets/Registration.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                    <VBox.margin>
-                        <Insets bottom="20.0" />
-                    </VBox.margin>
-                </VBox>
 
-                <!-- Nav Links -->
-                <Button maxWidth="1.7976931348623157E308" style="-fx-background-color: #48a078; -fx-text-fill: white; -fx-background-radius: 10;" text="Dashboard">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font>
-                    <padding><Insets bottom="10.0" top="10.0" /></padding>
-                </Button>
-
-                <!-- GI-ADD NA ANG onAction PARA SA ACCOUNTS -->
-                <Button onAction="#onAccountsClick" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Accounts" textAlignment="LEFT" />
-
-                <Button maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Categories" />
-
-                <Separator opacity="0.2">
-                    <VBox.margin><Insets bottom="10.0" top="10.0" /></VBox.margin>
-                </Separator>
-
-                <Label text="Analytics" textFill="#8fb39e">
-                    <font>
-                        <Font name="System Italic" size="12.0" />
-                    </font>
-                </Label>
-                <Button maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Cashflow" />
-                <Button maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Expenses" />
-
-                <Region VBox.vgrow="ALWAYS" />
-
-                <!-- GI-ADD NA ANG onAction PARA SA LOGOUT/OPTIONS -->
-                <Button onAction="#onLogoutClick" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent; -fx-text-fill: #b0c4b1;" text="Logout" />
-            </children>
-        </VBox>
-
+        <fx:include source="Sidebar.fxml" fx:id="sidebar"/>
         <!-- Main Content Area -->
         <VBox spacing="20.0" HBox.hgrow="ALWAYS">
             <padding>
