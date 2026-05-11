@@ -34,7 +34,7 @@ public class LoginController {
             // "As if" success: Lahos dayon sa Dashboard
             System.out.println("Login Success! Redirecting to Dashboard...");
 
-            Parent dashboardRoot = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/views/Dashboard.fxml"));
+            Parent dashboardRoot = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/screens/Dashboard.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(dashboardRoot));
             stage.setTitle("Smart Save - Dashboard");
