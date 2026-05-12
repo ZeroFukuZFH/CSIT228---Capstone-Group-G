@@ -3,10 +3,19 @@ package com.example.csit228capstone.data;
 import java.util.Date;
 
 public class Transaction {
+    private String transactionTitle;
     private Date transactionDate;
     private String description;
     private TransactionType transactionType;
     private double amount;
+
+    public String getTransactionTitle() {
+        return transactionTitle;
+    }
+
+    public void setTransactionTitle(String transactionTitle) {
+        this.transactionTitle = transactionTitle;
+    }
 
     public  Transaction(Date transactionDate, String description, TransactionType transactionType, double amount){
         this.amount = amount;
