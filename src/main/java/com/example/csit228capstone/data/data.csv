@@ -1,0 +1,11 @@
+transaction_title,description,transaction_type,amount,transaction_date
+Salary,January salary payment,INCOME,3500.00,2026-01-15
+Groceries,Weekly grocery shopping,EXPENSE,450.75,2026-01-20
+Freelance Work,Website development project,INCOME,1200.00,2026-01-10
+Electricity Bill,January electricity bill,EXPENSE,150.50,2026-01-25
+Rent Payment,Monthly rent for apartment,EXPENSE,1200.00,2026-01-01
+Investment Dividend,Quarterly stock dividends,INCOME,500.00,2026-01-05
+Dining Out,Dinner at restaurant,EXPENSE,85.30,2026-01-18
+Gift Received,Birthday gift from family,INCOME,200.00,2026-01-12
+Internet Subscription,Monthly internet bill,EXPENSE,65.99,2026-01-22
+Online Course Sale,Sold programming course,INCOME,750.00,2026-01-08
