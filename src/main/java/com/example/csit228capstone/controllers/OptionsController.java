@@ -55,7 +55,7 @@ public class OptionsController {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            List<Transaction> importedTransactions = new ArrayList<>();
+            List<Transaction> importedTransactions = new ArrayList<>(); // ARRAY LIST TO USE FOR UPDATING THE DATABASE
 
             boolean isFirstRow = true;
             while ((line = reader.readLine()) != null){
@@ -85,6 +85,8 @@ public class OptionsController {
                 Date transactionDate = dateFormat.parse(columns[4]);
 
                 Transaction transaction = new Transaction(title,description,transactionDate,transactionType,amount);
+                System.out.println(transaction);
+                importedTransactions.add(transaction);
             }
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
