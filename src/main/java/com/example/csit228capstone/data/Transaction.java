@@ -17,16 +17,18 @@ public class Transaction {
         this.transactionTitle = transactionTitle;
     }
 
-    public  Transaction(Date transactionDate, String description, TransactionType transactionType, double amount){
+    public  Transaction(String transactionTitle, String description, TransactionType transactionType, double amount){
+        this.transactionTitle = transactionTitle;
         this.amount = amount;
-        this.transactionDate = transactionDate;
+        this.transactionDate = new Date();
         this.description = description;
         this.transactionType = transactionType;
     }
 
-    public  Transaction(Date transactionDate, String description, TransactionType transactionType){
+    public  Transaction(String transactionTitle, String description, TransactionType transactionType){
+        this.transactionTitle = transactionTitle;
         this.amount = 0.00;
-        this.transactionDate = transactionDate;
+        this.transactionDate = new Date();
         this.description = description;
         this.transactionType = transactionType;
     }
