@@ -25,14 +25,6 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public  Transaction(String transactionTitle, String description, TransactionType transactionType){
-        this.transactionTitle = transactionTitle;
-        this.amount = 0.00;
-        this.transactionDate = new Date();
-        this.description = description;
-        this.transactionType = transactionType;
-    }
-
     public Date getTransactionDate() {
         return transactionDate;
     }
