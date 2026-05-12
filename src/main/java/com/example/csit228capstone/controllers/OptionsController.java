@@ -1,9 +1,18 @@
 package com.example.csit228capstone.controllers;
 
+import com.example.csit228capstone.data.Transaction;
+import com.example.csit228capstone.data.TransactionType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class OptionsController {
 
@@ -31,17 +40,50 @@ public class OptionsController {
 
     @FXML
     private void handleImport() {
-        // Handle import CSV
-        System.out.println("Import button clicked");
-        // TODO: Open file chooser and import CSV data
+
     }
 
     @FXML
     private void handleExport() {
-        // Handle export to CSV
         System.out.println("Export button clicked");
 
-        // TODO: Save transactions to CSV file
+        List<Transaction> transactions = new ArrayList<>(); // REPLACE WITH DATA FETCH LATER
+        if(transactions.isEmpty()) return;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("save export to");
+        fileChooser.setInitialFileName("transaction_history.csv");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+        File file = fileChooser.showSaveDialog(null);
+
+        if(file == null){
+            System.out.println("Export cancelled by user");
+            return;
+        }
+
+        String filePath = file.getAbsolutePath();
+        if (!filePath.toLowerCase().endsWith(".csv")) {
+            file = new File(filePath + ".csv");
+        }
+
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write("transaction_title,description,transaction_type,amount\n");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            for (Transaction transaction : transactions) {
+                writer.write(String.format("\"%s\",\"%s\",\"%s\",%s,%.2f\n",
+                        transaction.getTransactionTitle(),
+                        transaction.getDescription(),
+                        dateFormat.format(transaction.getTransactionDate()),
+                        transaction.getTransactionType(),
+                        transaction.getAmount()
+                ));
+            }
+
+            System.out.println("File saved successfully at: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("Error saving file: " + e.getMessage());
+        }
     }
 
     @FXML
