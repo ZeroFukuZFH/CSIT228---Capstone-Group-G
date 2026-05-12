@@ -1,0 +1,83 @@
+/* Main Layout */
+.main-bg {
+    -fx-background-color: #f4f7f9;
+}
+
+/* Account Card Design */
+.account-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e0e6ed;
+    -fx-border-radius: 14;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+}
+
+.add-account-btn {
+    -fx-background-color: #2d5a3d;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+/* Card Elements */
+.icon-circle {
+    -fx-background-color: #e8ede9;
+    -fx-background-radius: 50;
+}
+
+.icon-label {
+    -fx-font-size: 22px;
+    -fx-text-fill: #2d5a3d;
+}
+
+.account-name-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+}
+
+.default-badge {
+    -fx-font-size: 12px;
+    -fx-text-fill: #1a1a2e;
+    -fx-border-color: #1a1a2e;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1.5;
+}
+
+.set-default-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4caf50;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.balance-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+.balance-amount {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d5a3d;
+}
+
+.action-btn-edit {
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-text-fill: #555;
+}
+
+.action-btn-delete {
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-text-fill: #cc3333;
+}
