@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +41,54 @@ public class OptionsController {
 
     @FXML
     private void handleImport() {
+        System.out.println("Import button clicked");
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file ==  null) return;
+
+        String filePath = file.getAbsolutePath();
+        if (!filePath.toLowerCase().endsWith(".csv")) return;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            List<Transaction> importedTransactions = new ArrayList<>();
+
+            boolean isFirstRow = true;
+            while ((line = reader.readLine()) != null){
+                if (isFirstRow) {
+                    isFirstRow = false;
+                    continue;
+                }
+
+                String[] columns = line.split(",");
+
+                if(columns.length != 5) break;
+
+                String title = columns[0];
+                String description = columns[1];
+                TransactionType transactionType = null;
+                switch (columns[2].toUpperCase()){
+                    case "INCOME":
+                        transactionType = TransactionType.INCOME;
+                        break;
+                    case "EXPENSE":
+                        transactionType = TransactionType.EXPENSE;
+                        break;
+                }
+
+                double amount = Double.parseDouble(columns[3]);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date transactionDate = dateFormat.parse(columns[4]);
+
+                Transaction transaction = new Transaction(title,description,transactionDate,transactionType,amount);
+            }
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -56,10 +104,7 @@ public class OptionsController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
         File file = fileChooser.showSaveDialog(null);
 
-        if(file == null){
-            System.out.println("Export cancelled by user");
-            return;
-        }
+        if(file == null) return;
 
         String filePath = file.getAbsolutePath();
         if (!filePath.toLowerCase().endsWith(".csv")) {
@@ -67,7 +112,7 @@ public class OptionsController {
         }
 
         try (FileWriter writer = new FileWriter(file)) {
-            writer.write("transaction_title,description,transaction_type,amount\n");
+            writer.write("transaction_title,description,transaction_date,transaction_type,amount\n");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             for (Transaction transaction : transactions) {
