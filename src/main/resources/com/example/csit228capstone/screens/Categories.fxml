@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.csit228capstone.controllers.CategoriesController">
+    <children>
+        <fx:include fx:id="sidebar" source="Sidebar.fxml" />
+
+        <!-- Main Content Area -->
+        <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            <children>
+                <fx:include source="ActionButtons.fxml" fx:id="actionbuttons"/>
+
+                <!-- Categories Card -->
+                <VBox prefHeight="610.0" prefWidth="790.0"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+
+                        <!-- Header Row -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="Categories"
+                                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Button fx:id="addCategoryBtn"
+                                        text="add new category +"
+                                        onAction="#handleAddCategory"
+                                        style="-fx-background-color: #1e5631; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 8 16 8 16; -fx-cursor: hand;" />
+                            </children>
+                        </HBox>
+
+                        <!-- Divider spacing -->
+                        <Region prefHeight="12.0" />
+
+                        <!-- Scrollable Category List -->
+                        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                                    style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent;">
+                            <content>
+                                <VBox fx:id="categoryListContainer" spacing="8.0"
+                                      style="-fx-background-color: transparent;">
+                                    <padding>
+                                        <Insets right="4.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+
+                    </children>
+                </VBox>
+
+            </children>
+        </VBox>
+    </children>
+</HBox>
