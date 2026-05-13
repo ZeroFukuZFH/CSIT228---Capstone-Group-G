@@ -1,4 +1,4 @@
-package com.example.csit228capstone.controllers;
+package com.example.csit228capstone.controllers.utils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,5 +1,6 @@
-package com.example.csit228capstone.controllers;
+package com.example.csit228capstone.controllers.accounts;
 
+import com.example.csit228capstone.controllers.utils.BaseFormHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

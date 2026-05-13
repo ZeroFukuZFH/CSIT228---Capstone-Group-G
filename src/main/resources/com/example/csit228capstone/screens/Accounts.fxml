@@ -12,7 +12,7 @@
       stylesheets="@../styles/styles.css"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.csit228capstone.controllers.AccountsController">
+      fx:controller="com.example.csit228capstone.controllers.accounts.AccountsController">
     <children>
         <fx:include fx:id="sidebar" source="Sidebar.fxml"/>
 

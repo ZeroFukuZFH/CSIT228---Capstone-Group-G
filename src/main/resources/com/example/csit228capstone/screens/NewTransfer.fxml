@@ -6,7 +6,7 @@
 
 <VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       style="-fx-background-color: white; -fx-padding: 20;"
-        fx:controller="com.example.csit228capstone.controllers.NewTransferController"
+        fx:controller="com.example.csit228capstone.controllers.transfer.NewTransferController"
 >
     <HBox>
         <Label text="New Transaction" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>

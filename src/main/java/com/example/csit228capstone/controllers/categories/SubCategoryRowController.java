@@ -1,4 +1,4 @@
-package com.example.csit228capstone.controllers;
+package com.example.csit228capstone.controllers.categories;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

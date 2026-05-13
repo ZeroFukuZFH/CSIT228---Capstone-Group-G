@@ -1,4 +1,4 @@
-package com.example.csit228capstone.controllers;
+package com.example.csit228capstone.controllers.accounts;
 
 import com.example.csit228capstone.data.AccountStored;
 import javafx.fxml.FXML;
