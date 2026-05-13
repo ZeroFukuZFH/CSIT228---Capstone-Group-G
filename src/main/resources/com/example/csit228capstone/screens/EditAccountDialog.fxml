@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.EditAccountController">
+    <padding>
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+    </padding>
+    <children>
+        <Label text="Edit Account" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a1a2e;" />
+
+        <VBox spacing="5.0">
+            <Label text="Account Name" style="-fx-text-fill: #7f8c8d;" />
+            <TextField fx:id="nameField" style="-fx-background-radius: 8; -fx-padding: 10;" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label text="Balance" style="-fx-text-fill: #7f8c8d;" />
+            <TextField fx:id="balanceField" style="-fx-background-radius: 8; -fx-padding: 10;" />
+        </VBox>
+
+        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+            <padding><Insets top="10.0" /></padding>
+            <Button text="Cancel" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: #7f8c8d; -fx-cursor: hand;" />
+            <Button text="Save Changes" onAction="#handleSave" style="-fx-background-color: #2d5a3d; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" />
+        </HBox>
+    </children>
+</VBox>
