@@ -33,7 +33,7 @@ public class ActionButtonsController {
     @FXML
     private void handleCategory() {
         System.out.println("Category button clicked");
-        openWindow("New Category", "/com/example/csit228capstone/screens/NewCategory.fxml");
+        openWindow("New Category", "/com/example/csit228capstone/screens/NewCategoryDialog.fxml");
     }
 
     @FXML
