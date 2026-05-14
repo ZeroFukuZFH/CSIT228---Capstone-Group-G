@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 14, 2026 at 02:19 PM
+-- Generation Time: May 14, 2026 at 04:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,7 +43,6 @@ CREATE TABLE `account` (
 
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
-  `category_icon` varchar(255) NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `user_id` int(11) NOT NULL
