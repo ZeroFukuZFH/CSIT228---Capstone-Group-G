@@ -4,45 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Database {
-
-    private static Database instance;
-    private Connection connection;
-
-    private final String URL =
-            "jdbc:mysql://localhost:3306/expense_tracker";
-
-    private final String USERNAME = "root";
-    private final String PASSWORD = "";
-
-    private Database() {
-
+    protected Connection connection;
+    public Database() {
         try {
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            connection = DriverManager.getConnection(
+            String URL = "jdbc:mysql://localhost:3306/expense_tracker";
+            String USERNAME = "root";
+            String PASSWORD = "";
+            this.connection = DriverManager.getConnection(
                     URL,
                     USERNAME,
                     PASSWORD
             );
-
             System.out.println("Database Connected!");
-
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-    }
-
-    public static synchronized Database getInstance() {
-
-        if (instance == null) {
-            instance = new Database();
-        }
-
-        return instance;
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 }
