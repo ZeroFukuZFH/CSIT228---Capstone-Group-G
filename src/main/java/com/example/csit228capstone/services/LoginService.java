@@ -4,8 +4,9 @@ import com.example.csit228capstone.Database.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.RowId;
 import java.sql.SQLException;
-
+import com.example.csit228capstone.session.Session;
 public class LoginService extends Database {
     public LoginService(){
         super();
@@ -18,7 +19,12 @@ public class LoginService extends Database {
             pstmt.setString(2,lastname);
             pstmt.setString(3,password);
             ResultSet resultSet = pstmt.executeQuery();
-            return resultSet.next();
+            boolean status = resultSet.next();
+            if (status){
+                int id = resultSet.getInt("user_id");
+                Session.getInstance().setAttribute("id",String.valueOf(id));
+            }
+            return status;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

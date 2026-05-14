@@ -1,8 +1,10 @@
 package com.example.csit228capstone.services;
 
 import com.example.csit228capstone.Database.Database;
+import com.example.csit228capstone.session.Session;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RegisterService extends Database {
@@ -15,7 +17,17 @@ public class RegisterService extends Database {
             pstmt.setString(1,firstname);
             pstmt.setString(2,lastname);
             pstmt.setString(3,password);
-            pstmt.executeUpdate();
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int id = generatedKeys.getInt("user_id");
+                    Session.getInstance().setAttribute("id",String.valueOf(id));
+                }
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
