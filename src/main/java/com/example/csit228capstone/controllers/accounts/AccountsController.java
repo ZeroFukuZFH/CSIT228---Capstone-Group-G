@@ -27,32 +27,44 @@ public class AccountsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadPlaceholderAccounts();
+        // loadPlaceholderAccounts(); // removed — start empty
         renderAccounts();
-    }
-
-    // as if lng nga naay sud daan
-    private void loadPlaceholderAccounts() {
-        accounts.add(new AccountStored("Cash Wallet", "PHP", 5000.00, true));
-        accounts.add(new AccountStored("Bank Account", "PHP", 12500.75, false));
-        accounts.add(new AccountStored("GCash", "PHP", 800.00, false));
     }
 
     private void renderAccounts() {
         accountListContainer.getChildren().clear();
+
+        // --- EMPTY STATE ---
+        if (accounts.isEmpty()) {
+            VBox emptyState = new VBox(12);
+            emptyState.setAlignment(Pos.CENTER);
+            emptyState.setPadding(new Insets(80, 0, 80, 0));
+
+            Label icon = new Label("🏦");
+            icon.setStyle("-fx-font-size: 48px;");
+
+            Label title = new Label("No accounts yet");
+            title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1a1a2e;");
+
+            Label subtitle = new Label("Click \"add account +\" to get started.");
+            subtitle.setStyle("-fx-font-size: 13px; -fx-text-fill: #888888;");
+
+            emptyState.getChildren().addAll(icon, title, subtitle);
+            accountListContainer.getChildren().add(emptyState);
+            return;
+        }
+
         for (int i = 0; i < accounts.size(); i++) {
             accountListContainer.getChildren().add(createAccountCard(accounts.get(i), i));
         }
     }
 
     private HBox createAccountCard(AccountStored account, int index) {
-        // Root Card
         HBox card = new HBox(16);
         card.setAlignment(Pos.CENTER_LEFT);
         card.getStyleClass().add("account-card");
         card.setPadding(new Insets(18, 20, 18, 20));
 
-        // Icon Circle
         StackPane iconCircle = new StackPane();
         iconCircle.setMinSize(52, 52);
         iconCircle.getStyleClass().add("icon-circle");
@@ -60,12 +72,10 @@ public class AccountsController implements Initializable {
         iconLabel.getStyleClass().add("icon-label");
         iconCircle.getChildren().add(iconLabel);
 
-        // Account Name
         Label nameLabel = new Label(account.getAccountName());
         nameLabel.getStyleClass().add("account-name-label");
         nameLabel.setMinWidth(140);
 
-        // Default Badge OR Set Default Button
         Region badgeOrBtn;
         if (account.isDefault()) {
             Label defaultBadge = new Label("default");
@@ -80,9 +90,8 @@ public class AccountsController implements Initializable {
         }
 
         Region spacer = new Region();
-        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        // Balance Section
         VBox balanceBox = new VBox(2);
         balanceBox.setAlignment(Pos.CENTER_RIGHT);
         balanceBox.setMinWidth(150);
@@ -99,7 +108,6 @@ public class AccountsController implements Initializable {
         currencyRow.getChildren().addAll(currencyLabel, balanceLabel);
         balanceBox.getChildren().addAll(balanceTitle, currencyRow);
 
-        // Action Buttons
         Button editBtn = new Button("✏");
         editBtn.getStyleClass().add("action-btn-edit");
         editBtn.setOnAction(e -> handleEdit(index));
@@ -112,11 +120,36 @@ public class AccountsController implements Initializable {
         return card;
     }
 
-    // HANDLERS
+    @FXML
+    private void handleAddAccount() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/csit228capstone/screens/EditAccountDialog.fxml")
+            );
+            VBox root = loader.load();
 
-    @FXML private void handleAddAccount() {
-        accounts.add(new AccountStored("New Account", "PHP", 0.00, false));
-        renderAccounts();
+            Stage stage = new Stage();
+            stage.setTitle("New Account");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+
+            EditAccountController controller = loader.getController(); // FIXED: was NewAccountController
+            controller.setAccount(new AccountStored("", "PHP", 0.00, false)); // blank account for add mode
+
+            stage.showAndWait();
+
+            if (controller.isSaveClicked()) {
+                AccountStored newAccount = controller.getAccount(); // FIXED: was controller.getResult()
+                if (newAccount != null && !newAccount.getAccountName().isEmpty()) {
+                    accounts.add(newAccount);
+                    renderAccounts();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleSetDefault(int index) {
@@ -125,28 +158,23 @@ public class AccountsController implements Initializable {
         renderAccounts();
     }
 
-    /**
-     * Opens the Edit Modal and refreshes list if saved
-     */
     private void handleEdit(int index) {
         try {
-            // Load Edit FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/csit228capstone/screens/EditAccountDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/csit228capstone/screens/EditAccountDialog.fxml")
+            );
             VBox root = loader.load();
 
-            // Setup Modal Window
             Stage stage = new Stage();
             stage.setTitle("Edit Account");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
 
-            // Pass data to Edit Controller
             EditAccountController controller = loader.getController();
             controller.setAccount(accounts.get(index));
 
             stage.showAndWait();
 
-            // Refresh UI if save was clicked
             if (controller.isSaveClicked()) {
                 renderAccounts();
             }
@@ -164,12 +192,5 @@ public class AccountsController implements Initializable {
             accounts.remove(index);
             renderAccounts();
         }
-    }
-
-    private void showInfo(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

@@ -1,29 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox spacing="15.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.accounts.EditAccountController">
+
+<VBox spacing="16.0"
+      prefWidth="360.0"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.csit228capstone.controllers.accounts.EditAccountController"
+      style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 20, 0, 0, 4);">
     <padding>
-        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
     </padding>
-    <children>
-        <Label text="Edit Account" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a1a2e;" />
 
-        <VBox spacing="5.0">
-            <Label text="Account Name" style="-fx-text-fill: #7f8c8d;" />
-            <TextField fx:id="nameField" style="-fx-background-radius: 8; -fx-padding: 10;" />
-        </VBox>
 
-        <VBox spacing="5.0">
-            <Label text="Balance" style="-fx-text-fill: #7f8c8d;" />
-            <TextField fx:id="balanceField" style="-fx-background-radius: 8; -fx-padding: 10;" />
-        </VBox>
-
-        <HBox spacing="10.0" alignment="CENTER_RIGHT">
-            <padding><Insets top="10.0" /></padding>
-            <Button text="Cancel" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: #7f8c8d; -fx-cursor: hand;" />
-            <Button text="Save Changes" onAction="#handleSave" style="-fx-background-color: #2d5a3d; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;" />
+    <!-- Header Row: Title + Date Badge -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <Label text="New Account"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox alignment="CENTER" spacing="6.0"
+              style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 5 10 5 10;">
+            <Label fx:id="dateLabel" text="05/13/2026"
+                   style="-fx-font-size: 12px; -fx-text-fill: #333333;" />
+            <Label text="📅" style="-fx-font-size: 14px;" />
         </HBox>
-    </children>
+    </HBox>
+
+
+    <!-- Account Name Field -->
+    <VBox spacing="6.0">
+        <Label text="Account Name"
+               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+        <TextField fx:id="nameField"
+                   promptText="e.g. Cash, GCash, BDO..."
+                   style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 10 8 10; -fx-font-size: 13px;" />
+    </VBox>
+
+
+    <!-- Initial Balance Field -->
+    <VBox spacing="6.0">
+        <Label text="Initial Balance"
+               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+        <TextField fx:id="balanceField"
+                   promptText="0.00"
+                   style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 10 8 10; -fx-font-size: 13px;" />
+    </VBox>
+
+
+    <!-- Color Picker Row -->
+    <HBox alignment="CENTER_LEFT" spacing="14.0">
+        <Label text="Color"
+               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+        <ColorPicker fx:id="colorPicker"
+                     style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-cursor: hand;" />
+    </HBox>
+
+
+    <!-- Icon Picker Row -->
+    <HBox alignment="CENTER_LEFT" spacing="14.0">
+        <Label text="Icon"
+               style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+        <StackPane fx:id="iconPickerBox"
+                   prefWidth="36.0" prefHeight="36.0"
+                   style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 6; -fx-background-radius: 6; -fx-cursor: hand;"
+                   onMouseClicked="#handleIconPicker">
+            <Label fx:id="iconPreviewLabel" text="💳"
+                   style="-fx-font-size: 18px;" />
+        </StackPane>
+    </HBox>
+
+
+    <Region prefHeight="4.0" />
+
+
+    <!-- Action Buttons -->
+    <HBox alignment="CENTER_RIGHT" spacing="12.0">
+        <Button text="Cancel"
+                onAction="#handleCancel"
+                style="-fx-background-color: white; -fx-text-fill: #333333; -fx-border-color: #cccccc; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8 22 8 22; -fx-font-size: 13px; -fx-cursor: hand;" />
+        <Button text="Save"
+                onAction="#handleSave"
+                style="-fx-background-color: #1e5631; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-padding: 8 28 8 28; -fx-font-size: 13px; -fx-font-weight: bold; -fx-cursor: hand;" />
+    </HBox>
+
+
 </VBox>
