@@ -29,4 +29,9 @@ module com.example.csit228capstone {
     opens com.example.csit228capstone.controllers.utils to javafx.fxml;
     exports com.example.csit228capstone.controllers.options;
     opens com.example.csit228capstone.controllers.options to javafx.fxml;
+
+
+    // Added for cashflow.
+    exports com.example.csit228capstone.controllers.cashflow;
+    opens com.example.csit228capstone.controllers.cashflow to javafx.fxml;
 }
