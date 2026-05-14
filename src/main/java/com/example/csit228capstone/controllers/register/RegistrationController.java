@@ -1,5 +1,6 @@
 package com.example.csit228capstone.controllers.register;
 
+import com.example.csit228capstone.services.RegisterService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,6 +26,9 @@ public class RegistrationController {
         String password = passwordField.getText();
 
         if (fname.isEmpty() || lname.isEmpty() || password.isEmpty()) return;
+
+        RegisterService registerService = new RegisterService();
+        registerService.register(fname,lname,password);
 
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/screens/Dashboard.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
