@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 12, 2026 at 05:38 PM
+-- Generation Time: May 14, 2026 at 02:19 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ExpenseTrackerDB`
+-- Database: `expense_tracker`
 --
 
 -- --------------------------------------------------------
@@ -43,8 +43,10 @@ CREATE TABLE `account` (
 
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
+  `category_icon` varchar(255) NOT NULL,
   `category_name` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -80,6 +82,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `password`, `created_at`) VALUES
+(1, 'admin', 'admin', 'admin', '2026-05-14 10:58:01');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -95,7 +104,8 @@ ALTER TABLE `account`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`category_id`),
-  ADD UNIQUE KEY `category_name` (`category_name`);
+  ADD UNIQUE KEY `category_name` (`category_name`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `transaction`
@@ -138,7 +148,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -149,6 +159,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `account`
   ADD CONSTRAINT `fk_account_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `category`
+--
+ALTER TABLE `category`
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaction`
