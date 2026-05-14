@@ -1,5 +1,6 @@
 package com.example.csit228capstone.controllers.login;
 
+import com.example.csit228capstone.services.LoginService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,20 +15,24 @@ import java.io.IOException;
 public class LoginController {
 
     @FXML
-    private TextField usernameField;
+    private TextField fnameField;
+    @FXML
+    private TextField lnameField;
     @FXML
     private PasswordField passwordField;
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
-        String username = usernameField.getText();
+        String fname = fnameField.getText();
+        String lname = lnameField.getText();
         String password = passwordField.getText();
 
-        if (username.isEmpty() || password.isEmpty()) {
+        if (fname.isEmpty() || lname.isEmpty() || password.isEmpty()) {
             System.out.println("Please enter both username and password.");
             return;
         }
 
-        Boolean status = true; // REPLACE WITH DATABASE AUTH LATER
+        LoginService loginService = new LoginService();
+        boolean status = loginService.login(fname,lname,password);
 
         if (status) {
             System.out.println("Login Success! Redirecting to Dashboard...");
