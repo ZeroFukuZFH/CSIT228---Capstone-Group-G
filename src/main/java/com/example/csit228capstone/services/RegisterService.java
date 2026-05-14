@@ -3,27 +3,22 @@ package com.example.csit228capstone.services;
 import com.example.csit228capstone.Database.Database;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginService extends Database {
-    public LoginService(){
+public class RegisterService extends Database {
+    public RegisterService(){
         super();
     }
-    public boolean login(String firstname ,String lastname, String password){
-
-        String sql = "SELECT * FROM user WHERE first_name=? AND last_name =? AND password=?";
+    public void register(String firstname,String lastname,String password){
+        String sql = "INSERT INTO user (first_name,last_name,password) VALUES (?,?,?)";
         try(PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
             pstmt.setString(1,firstname);
             pstmt.setString(2,lastname);
             pstmt.setString(3,password);
-            ResultSet resultSet = pstmt.executeQuery();
-            return resultSet.next();
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+
     }
-
-
 }
