@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2d4538;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.SideBarController">
+<VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2d4538;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.utils.SideBarController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
     </padding>

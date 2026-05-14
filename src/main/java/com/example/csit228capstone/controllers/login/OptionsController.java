@@ -1,11 +1,10 @@
-package com.example.csit228capstone.controllers;
+package com.example.csit228capstone.controllers.login;
 
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
 
 import java.io.*;

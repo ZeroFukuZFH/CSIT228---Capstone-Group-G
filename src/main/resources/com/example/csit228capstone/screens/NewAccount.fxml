@@ -6,7 +6,7 @@
 
 <VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       style="-fx-background-color: white; -fx-padding: 20;"
-        fx:controller="com.example.csit228capstone.controllers.NewAccountController"
+        fx:controller="com.example.csit228capstone.controllers.accounts.NewAccountController"
 >
 
     <Label text="New Account" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>

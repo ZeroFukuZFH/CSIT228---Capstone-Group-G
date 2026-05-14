@@ -9,7 +9,7 @@
       alignment="CENTER_LEFT" spacing="10.0"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.csit228capstone.controllers.SubCategoryRowController"
+      fx:controller="com.example.csit228capstone.controllers.categories.SubCategoryRowController"
       style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #e0e0e0; -fx-border-radius: 6; -fx-border-width: 1; -fx-padding: 8 14 8 14;">
 
     <!-- Sub Category Title -->
