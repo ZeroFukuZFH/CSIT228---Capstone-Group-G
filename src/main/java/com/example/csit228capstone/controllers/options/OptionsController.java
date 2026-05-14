@@ -2,6 +2,7 @@ package com.example.csit228capstone.controllers.options;
 
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
+import com.example.csit228capstone.services.OptionService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -31,11 +32,13 @@ public class OptionsController {
     @FXML
     private ComboBox<String> defaultCurrencyComboBox;
 
+    OptionService optionService;
     @FXML
     private void initialize() {
         String[] currency = {"USD", "PHP", "EUR", "GBP", "JPY"};
         defaultCurrencyComboBox.getItems().addAll(currency);
         defaultCurrencyComboBox.setValue(currency[0]);
+        this.optionService = new OptionService();
     }
 
     @FXML
@@ -86,7 +89,9 @@ public class OptionsController {
                 Transaction transaction = new Transaction(title,description,transactionDate,transactionType,amount);
                 System.out.println(transaction);
                 importedTransactions.add(transaction);
+
             }
+            optionService.importCsv(importedTransactions);
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
