@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 14, 2026 at 04:50 PM
+-- Generation Time: May 14, 2026 at 06:26 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,6 +48,13 @@ CREATE TABLE `category` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`, `created_at`, `user_id`) VALUES
+(1, 'DEFAULT', '2026-05-14 16:02:01', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -58,7 +65,7 @@ CREATE TABLE `transaction` (
   `transaction_id` int(11) NOT NULL,
   `account_id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `transaction_type` enum('Deposit','Withdrawal','Transfer_In','Transfer_Out') NOT NULL,
+  `transaction_type` varchar(255) NOT NULL,
   `amount` decimal(15,2) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `transaction_date` datetime DEFAULT current_timestamp(),
@@ -135,7 +142,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `transaction`
