@@ -31,18 +31,6 @@ public class ActionButtonsController {
     }
 
     @FXML
-    private void handleCategory() {
-        System.out.println("Category button clicked");
-        openWindow("New Category", "/com/example/csit228capstone/screens/NewCategoryDialog.fxml");
-    }
-
-    @FXML
-    private void handleAccount() {
-        System.out.println("Account button clicked");
-        openWindow("New Account", "/com/example/csit228capstone/screens/NewAccount.fxml");
-    }
-
-    @FXML
     private void handleNewTransaction() {
         System.out.println("New Transaction button clicked");
         openWindow("New Transaction", "/com/example/csit228capstone/screens/NewTransaction.fxml");
