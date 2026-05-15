@@ -6,6 +6,7 @@ module com.example.csit228capstone {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires java.desktop;
 
     opens com.example.csit228capstone to javafx.fxml;
     exports com.example.csit228capstone;
