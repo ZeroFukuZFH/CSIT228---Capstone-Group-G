@@ -3,9 +3,18 @@ package com.example.csit228capstone.data;
 import java.util.Date;
 
 public class Account {
+    private int accountId;
     private String accountName;
     private Double currentBalance;
     private Date createdAt;
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
 
     public String getAccountName() {
         return accountName;
