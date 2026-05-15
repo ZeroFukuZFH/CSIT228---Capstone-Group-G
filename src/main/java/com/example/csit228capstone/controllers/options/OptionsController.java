@@ -69,8 +69,11 @@ public class OptionsController {
 
                 String title = columns[0];
                 String description = columns[1];
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date transactionDate = dateFormat.parse(columns[2]);
+
                 TransactionType transactionType = null;
-                switch (columns[2].toUpperCase()){
+                switch (columns[3].toUpperCase()){
                     case "INCOME":
                         transactionType = TransactionType.INCOME;
                         break;
@@ -79,9 +82,8 @@ public class OptionsController {
                         break;
                 }
 
-                double amount = Double.parseDouble(columns[3]);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date transactionDate = dateFormat.parse(columns[4]);
+                double amount = Double.parseDouble(columns[4]);
+
 
                 Transaction transaction = new Transaction(title,description,transactionDate,transactionType,amount);
                 System.out.println(transaction);
