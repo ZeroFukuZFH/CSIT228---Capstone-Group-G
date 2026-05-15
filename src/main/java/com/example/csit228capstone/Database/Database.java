@@ -15,7 +15,6 @@ public class Database {
                     USERNAME,
                     PASSWORD
             );
-            System.out.println("Database Connected!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
