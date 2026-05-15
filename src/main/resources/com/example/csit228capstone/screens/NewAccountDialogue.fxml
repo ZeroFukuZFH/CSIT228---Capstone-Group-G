@@ -14,17 +14,12 @@
     <Separator/>
 
     <Label text="Account Name:"/>
-    <TextField fx:id="categoryTitleField" promptText="Enter title"/>
+    <TextField fx:id="accountNameField" promptText="Enter title"/>
 
     <Label text="Initial Balance:"/>
-    <TextField fx:id="balanceField"/>
+    <TextField fx:id="accountBalanceField"/>
 
     <Separator/>
-
-    <Label text="Color:"/>
-    <ColorPicker fx:id="colorPicker" promptText="Select Color"/>
-
-    <Label text="Icon:"/>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
         <Button text="Cancel" onAction="#handleCancel"/>
