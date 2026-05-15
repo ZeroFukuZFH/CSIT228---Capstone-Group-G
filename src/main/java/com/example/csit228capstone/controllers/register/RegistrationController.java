@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
@@ -25,7 +26,9 @@ public class RegistrationController {
         String lname = lnameField.getText();
         String password = passwordField.getText();
 
-        if (fname.isEmpty() || lname.isEmpty() || password.isEmpty()) return;
+        if (fname.isEmpty() || lname.isEmpty() || password.isEmpty()){
+            showError("Fields should not be empty");
+        }
 
         RegisterService registerService = new RegisterService();
         registerService.register(fname,lname,password);
@@ -44,5 +47,13 @@ public class RegistrationController {
         stage.setScene(new Scene(root));
         stage.setTitle("Login");
         stage.show();
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 
 <HBox prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #f4f7f9;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228capstone.controllers.dashboard.DashboardController">
     <children>
@@ -61,9 +62,10 @@
                             <children>
                         <HBox alignment="CENTER" prefHeight="51.0" prefWidth="770.0" spacing="20.0">
                            <children>
-                              <Label text="TRANSACTIONS" />
-                              <ComboBox prefWidth="150.0" fx:id="categoriesComboBox"/>
-                              <TextField prefHeight="25.0" prefWidth="462.0" promptText="Search Transactions" fx:id="searchTextField"/>
+                               <Label text="TRANSACTIONS" />
+                               <ComboBox prefWidth="150.0" fx:id="categoriesComboBox"/>
+                               <TextField prefHeight="25.0" prefWidth="462.0" promptText="Search Transactions" fx:id="searchTextField"/>
+                               <Button onAction="#onAddTransactionClick" text="add new transaction"/>
                            </children>
                         </HBox>
                                 <!-- Additional content here -->

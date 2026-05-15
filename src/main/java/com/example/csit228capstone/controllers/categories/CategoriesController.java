@@ -57,7 +57,7 @@ public class CategoriesController {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource(
-                            "/com/example/csit228capstone/screens/NewCategoryDialog.fxml"));
+                            "/com/example/csit228capstone/screens/NewCategoryDialogue.fxml"));
             Parent root = loader.load();
 
             NewCategoryDialogController dialogCtrl = loader.getController();

@@ -1,25 +1,23 @@
 package com.example.csit228capstone.controllers.dashboard;
 
-import com.example.csit228capstone.controllers.utils.ActionButtonsController;
 import com.example.csit228capstone.data.Transaction;
-import com.example.csit228capstone.data.TransactionType;
-import com.example.csit228capstone.services.AccountService;
 import com.example.csit228capstone.services.DashboardService;
-import com.example.csit228capstone.services.OptionService;
-import com.example.csit228capstone.session.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +46,11 @@ public class DashboardController {
     @FXML
     TextField searchTextField;
 
+
+    String search;
+    String category;
+
+
     List<Transaction> transactions;
 
     @FXML
@@ -66,41 +69,69 @@ public class DashboardController {
 
         this.transactions = service.getAllTransactions();
 
-
         renderList();
         search();
         filter();
     }
 
+    @FXML
+    private void onAddTransactionClick(ActionEvent event){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/csit228capstone/screens/NewTransactionDialogue.fxml"));
+        try {
+            Parent root = loader.load();
+            Stage smallStage = new Stage();
+            smallStage.setTitle("Add New Transaction");
+            smallStage.setWidth(400);
+            smallStage.setHeight(500);
+            smallStage.setResizable(false);
+
+            Scene scene = new Scene(root);
+            smallStage.setScene(scene);
+            smallStage.show();
+
+            renderList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     private void filter(){
-        //TODO (IMPLEMENT LATER)
-        // general idea : if category fk userid = userid then filter
+        this.categoriesComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.category = newValue;
+            renderList();
+        });
     }
 
     private void search(){
         this.searchTextField.textProperty().addListener((observable ,oldVal,newVal ) -> {
-            renderList(newVal);
+            this.search = newVal;
+            renderList();
         });
     }
 
     public void renderList(){
         this.contentBox.getChildren().clear();
-        for (Transaction t : transactions) {
-            this.contentBox.getChildren().add(transactionItem(t));
-        }
-    }
 
-    public void renderList(String search){
-        if(search.isEmpty()) {
-            renderList();
-            return;
-        }
-        this.contentBox.getChildren().clear();
         for (Transaction t : transactions) {
-            if(t.getTransactionTitle().contains(search)){
+            boolean matchesSearch = true;
+            boolean matchesCategory = true;
+
+            // Check search filter
+            if (search != null && !search.isEmpty()) {
+                matchesSearch = t.getTransactionTitle().toLowerCase().contains(search.toLowerCase());
+            }
+
+            // Check category filter
+            if (category != null && !category.isEmpty() && !category.equals("All")) {
+                matchesCategory = true; // change to match ID
+            }
+
+            if (matchesSearch && matchesCategory) {
                 this.contentBox.getChildren().add(transactionItem(t));
             }
         }
+
     }
 
     public HBox transactionItem(Transaction transaction){

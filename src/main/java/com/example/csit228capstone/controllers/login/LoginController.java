@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
@@ -27,7 +28,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (fname.isEmpty() || lname.isEmpty() || password.isEmpty()) {
-            System.out.println("Please enter both username and password.");
+            showError("Fields should not be empty");
             return;
         }
 
@@ -43,6 +44,14 @@ public class LoginController {
             stage.setTitle("Smart Save - Dashboard");
             stage.show();
         }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
