@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountService extends Database {
+    private int defaultId;
     public AccountService() {
         super();
     }

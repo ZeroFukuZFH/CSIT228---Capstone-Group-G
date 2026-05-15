@@ -2,13 +2,19 @@ package com.example.csit228capstone.services;
 
 import com.example.csit228capstone.Database.Database;
 import com.example.csit228capstone.data.Transaction;
+import com.example.csit228capstone.session.Session;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardService extends Database {
     public DashboardService(){
         super();
+
+
     }
 
     public String getCurrency(){
