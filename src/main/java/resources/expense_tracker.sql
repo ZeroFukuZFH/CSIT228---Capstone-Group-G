@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 14, 2026 at 06:26 PM
+-- Generation Time: May 15, 2026 at 06:23 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,6 +35,13 @@ CREATE TABLE `account` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`account_id`, `user_id`, `account_name`, `current_balance`, `created_at`) VALUES
+(7, 9, 'DEFAULT ACCOUNT', 0.00, '2026-05-15 03:50:58');
+
 -- --------------------------------------------------------
 
 --
@@ -53,7 +60,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`, `created_at`, `user_id`) VALUES
-(1, 'DEFAULT', '2026-05-14 16:02:01', 1);
+(3, 'DEFAULT', '2026-05-15 03:48:14', 9);
 
 -- --------------------------------------------------------
 
@@ -70,7 +77,8 @@ CREATE TABLE `transaction` (
   `description` varchar(255) DEFAULT NULL,
   `transaction_date` datetime DEFAULT current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `transaction_title` varchar(255) NOT NULL
+  `transaction_title` varchar(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -92,7 +100,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `password`, `created_at`) VALUES
-(1, 'admin', 'admin', 'admin', '2026-05-14 10:58:01');
+(9, 'admin', 'admin', 'admin', '2026-05-15 03:19:35'),
+(10, 'admin2', 'admin2', 'admin2', '2026-05-15 03:26:04');
 
 --
 -- Indexes for dumped tables
@@ -119,7 +128,8 @@ ALTER TABLE `category`
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`transaction_id`),
   ADD KEY `fk_transaction_account` (`account_id`),
-  ADD KEY `fk_transaction_category` (`category_id`);
+  ADD KEY `fk_transaction_category` (`category_id`),
+  ADD KEY `fk_transaction_user` (`user_id`);
 
 --
 -- Indexes for table `user`
@@ -136,25 +146,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -177,7 +187,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `fk_transaction_account` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_transaction_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_transaction_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `fk_transaction_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
