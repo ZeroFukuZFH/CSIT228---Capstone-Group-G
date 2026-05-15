@@ -40,7 +40,7 @@ public class AccountsController {
     public void initialize() {
         this.currentUserId = Integer.parseInt(Session.getInstance().getAttribute("id"));
         this.accountService = new AccountService();
-        this.accounts = accountService.getAllAccounts();
+        renderAccounts();
     }
 
     @FXML
@@ -48,6 +48,8 @@ public class AccountsController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/csit228capstone/screens/NewAccountDialogue.fxml"));
         try {
             Parent root = loader.load();
+
+
             Stage smallStage = new Stage();
             smallStage.setTitle("Add New Transaction");
             smallStage.setWidth(400);
@@ -56,7 +58,7 @@ public class AccountsController {
 
             Scene scene = new Scene(root);
             smallStage.setScene(scene);
-            smallStage.show();
+            smallStage.showAndWait();
 
             renderAccounts();
         } catch (IOException e) {
@@ -65,6 +67,7 @@ public class AccountsController {
     }
 
     private void renderAccounts(){
+        this.accounts = accountService.getAllAccounts();
         accountListContainer.getChildren().clear();
         for (Account account : accounts){
             accountListContainer.getChildren().add(accountsContainer(account));
@@ -108,18 +111,22 @@ public class AccountsController {
     }
 
     private void handleEditAccount(Account account) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/csit228capstone/screens/NewAccountDialogue.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/csit228capstone/screens/EditAccountDialogue.fxml"));
         try {
             Parent root = loader.load();
+
+            EditAccountController dialogController = loader.getController();
+            dialogController.setOldAccount(account.getAccountName());
+
             Stage smallStage = new Stage();
-            smallStage.setTitle("Add New Transaction");
+            smallStage.setTitle("Edit Existing Transaction");
             smallStage.setWidth(400);
             smallStage.setHeight(300);
             smallStage.setResizable(false);
 
             Scene scene = new Scene(root);
             smallStage.setScene(scene);
-            smallStage.show();
+            smallStage.showAndWait();
 
             renderAccounts();
         } catch (IOException e) {
@@ -128,7 +135,7 @@ public class AccountsController {
     }
 
     private void handleDeleteAccount(Account account) {
-        accountService.deleteAccount(account);
+        accountService.deleteAccount(account.getAccountName());
         renderAccounts();
     }
 

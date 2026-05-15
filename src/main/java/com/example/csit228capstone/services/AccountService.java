@@ -28,12 +28,13 @@ public class AccountService extends Database {
         }
     }
 
-    public void editAccount(String accountName, Double initialBalance){
-        String sql = "UPDATE account SET current_balance=? WHERE user_id=? AND account_name=?";
-        try(PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
-            pstmt.setDouble(1, initialBalance == null ? 0.00 : initialBalance);
-            pstmt.setInt(2, getCurrentUserId());
-            pstmt.setString(3, accountName);
+    public void editAccount(String oldAccountName, String newAccountName, Double newBalance){
+        String sql = "UPDATE account SET account_name = ?, current_balance = ? WHERE user_id = ? AND account_name = ?";
+        try (PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
+            pstmt.setString(1, newAccountName);
+            pstmt.setDouble(2, newBalance == null ? 0.00 : newBalance);
+            pstmt.setInt(3, getCurrentUserId());
+            pstmt.setString(4, oldAccountName);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -67,5 +68,16 @@ public class AccountService extends Database {
             throw new IllegalStateException("No logged-in user found in session.");
         }
         return Integer.parseInt(id);
+    }
+
+    public void deleteAccount(String accountName) {
+        String sql = "DELETE FROM account WHERE account_name = ? AND user_id = ?";
+        try (PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
+            pstmt.setString(1, accountName);
+            pstmt.setInt(2,getCurrentUserId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
