@@ -70,7 +70,7 @@ public class OptionsController {
                 String title = columns[0];
                 String description = columns[1];
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date transactionDate = dateFormat.parse(columns[2]);
+                Date transactionDate = dateFormat.parse(columns[2].replace("\"", "").trim());
 
                 TransactionType transactionType = null;
                 switch (columns[3].toUpperCase()){
@@ -120,6 +120,7 @@ public class OptionsController {
         try (FileWriter writer = new FileWriter(file)) {
             writer.write("transaction_title,description,transaction_date,transaction_type,amount\n");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
             for (Transaction transaction : transactions) {
                 writer.write(String.format("\"%s\",\"%s\",\"%s\",%s,%.2f\n",
