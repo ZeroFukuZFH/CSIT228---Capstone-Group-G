@@ -16,9 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 public class OptionsController {
-
-
-
     @FXML
     private Button importButton;
 
@@ -91,7 +88,7 @@ public class OptionsController {
                 importedTransactions.add(transaction);
 
             }
-            optionService.importCsv(importedTransactions);
+            this.optionService.importCsv(importedTransactions);
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
@@ -101,7 +98,8 @@ public class OptionsController {
     private void handleExport() {
         System.out.println("Export button clicked");
 
-        List<Transaction> transactions = new ArrayList<>(); // REPLACE WITH DATA FETCH LATER
+        List<Transaction> transactions = this.optionService.exportCsv();
+
         if(transactions.isEmpty()) return;
 
         FileChooser fileChooser = new FileChooser();
