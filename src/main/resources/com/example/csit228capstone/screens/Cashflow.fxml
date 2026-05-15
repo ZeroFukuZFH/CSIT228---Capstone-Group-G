@@ -24,9 +24,6 @@
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
             <children>
-                <!-- Top Action Buttons -->
-                <fx:include fx:id="actionbuttons" source="ActionButtons.fxml" />
-
                 <!-- Dashboard Content Container -->
                 <VBox prefHeight="610.0" prefWidth="790.0">
                     <padding>

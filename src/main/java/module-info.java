@@ -19,10 +19,6 @@ module com.example.csit228capstone {
     opens com.example.csit228capstone.controllers.categories to javafx.fxml;
     exports com.example.csit228capstone.controllers.login;
     opens com.example.csit228capstone.controllers.login to javafx.fxml;
-    exports com.example.csit228capstone.controllers.transactions;
-    opens com.example.csit228capstone.controllers.transactions to javafx.fxml;
-    exports com.example.csit228capstone.controllers.transfer;
-    opens com.example.csit228capstone.controllers.transfer to javafx.fxml;
     exports com.example.csit228capstone.controllers.register;
     opens com.example.csit228capstone.controllers.register to javafx.fxml;
     exports com.example.csit228capstone.controllers.utils;

@@ -33,7 +33,6 @@ public class CategoryService extends Database {
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()){
                 String name = resultSet.getString("category_name");
-
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
