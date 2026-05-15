@@ -21,7 +21,6 @@
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
             </padding>
             <children>
-                <fx:include source="ActionButtons.fxml" fx:id="actionbuttons"/>
 
                 <!-- Categories Card -->
                 <VBox prefHeight="610.0" prefWidth="790.0"

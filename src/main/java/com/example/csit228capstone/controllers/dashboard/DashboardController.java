@@ -1,5 +1,6 @@
 package com.example.csit228capstone.controllers.dashboard;
 
+import com.example.csit228capstone.controllers.utils.ActionButtonsController;
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
 import com.example.csit228capstone.services.AccountService;
@@ -64,6 +65,7 @@ public class DashboardController {
         this.categoriesComboBox.getItems().addAll(service.getAllCategories());
 
         this.transactions = service.getAllTransactions();
+
 
         renderList();
         search();
