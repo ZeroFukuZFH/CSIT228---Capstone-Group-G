@@ -1,6 +1,7 @@
 package com.example.csit228capstone.controllers.categories;
 
-import com.example.csit228capstone.services.data.CategoryService;
+import com.example.csit228capstone.data.Category;
+import com.example.csit228capstone.services.CategoryService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,7 @@ public class CategoriesController {
 
     private CategoryService categoryService;
 
-    List<String> categories; // growable list nato
+    List<Category> categories; // growable list nato
 
 
     @FXML
@@ -63,15 +64,12 @@ public class CategoriesController {
         }
     }
 
-    // AI
-    // Fetches all category names from DB and rebuilds the list
-    // Called on init, after add, after edit, and after delete.
     private void renderCategories() {
         this.categories = categoryService.getAllCategories();
         categoryListContainer.getChildren().clear();
 
-        for (String categoryName : categories) {
-            categoryListContainer.getChildren().add(buildCategoryRow(categoryName));
+        for (Category category : categories) {
+            categoryListContainer.getChildren().add(buildCategoryRow(category.getName()));
         }
     }
 

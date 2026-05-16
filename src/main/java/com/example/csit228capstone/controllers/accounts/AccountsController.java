@@ -2,7 +2,7 @@
 package com.example.csit228capstone.controllers.accounts;
 
 import com.example.csit228capstone.data.Account;
-import com.example.csit228capstone.services.data.AccountService;
+import com.example.csit228capstone.services.AccountService;
 import com.example.csit228capstone.session.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,6 +1,6 @@
 package com.example.csit228capstone.controllers.categories;
 
-import com.example.csit228capstone.services.data.CategoryService;
+import com.example.csit228capstone.services.CategoryService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

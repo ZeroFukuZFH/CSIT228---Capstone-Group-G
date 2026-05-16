@@ -2,7 +2,7 @@ package com.example.csit228capstone.controllers.options;
 
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
-import com.example.csit228capstone.services.data.OptionService;
+import com.example.csit228capstone.services.OptionService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -85,7 +85,15 @@ public class OptionsController {
                 double amount = Double.parseDouble(columns[4]);
 
 
-                Transaction transaction = new Transaction(title,description,transactionDate,transactionType,amount);
+                Transaction transaction = new Transaction(
+                        optionService.getDefaultAccountId(),
+                        optionService.getDefaultCategoryId(),
+                        title,
+                        description,
+                        transactionDate,
+                        transactionType,
+                        amount
+                );
                 System.out.println(transaction);
                 importedTransactions.add(transaction);
 

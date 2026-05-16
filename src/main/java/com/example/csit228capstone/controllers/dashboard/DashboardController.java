@@ -1,7 +1,12 @@
 package com.example.csit228capstone.controllers.dashboard;
 
+import com.example.csit228capstone.data.Account;
+import com.example.csit228capstone.data.Category;
 import com.example.csit228capstone.data.Transaction;
-import com.example.csit228capstone.services.DashboardService;
+import com.example.csit228capstone.data.TransactionType;
+import com.example.csit228capstone.services.AccountService;
+import com.example.csit228capstone.services.CategoryService;
+import com.example.csit228capstone.services.TransactionService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,56 +24,78 @@ import java.util.Date;
 import java.util.List;
 
 public class DashboardController {
-    DashboardService service;
+
     @FXML
     Label totalExpenses;
     @FXML
     Label totalIncome;
-
     @FXML
     Label incomeCurrency;
     @FXML
     Label expenseCurrency;
     @FXML
     Label currentDate;
-
     @FXML
     ScrollPane scrollPane;
-
     @FXML
     VBox contentBox;
-
     @FXML
-    ComboBox<String> categoriesComboBox;
+    ComboBox<Account> accountComboBox;
+    @FXML
+    ComboBox<Category> categoriesComboBox;
     @FXML
     TextField searchTextField;
-
-
     String search;
-    String category;
-
-
+    Category category;
+    Account account;
     List<Transaction> transactions;
+    List<Category> categories;
+    List<Account> accounts;
+    CategoryService categoryService;
+    TransactionService transactionService;
+    AccountService accountService;
 
     @FXML
     public void initialize(){
-        this.service = new DashboardService();
+        this.transactionService = new TransactionService();
+        this.categoryService = new CategoryService();
+        this.accountService = new AccountService();
+
+        this.accounts = this.accountService.getAllAccounts();
+        this.categories = this.categoryService.getAllCategories();
+
         this.currentDate.setText(new Date().toString());
-        this.incomeCurrency.setText(service.getCurrency());
-        this.expenseCurrency.setText(service.getCurrency());
-        this.totalExpenses.setText(service.getTotalExpenses().toString());
-        this.totalIncome.setText(service.getTotalBalance().toString());
+        this.incomeCurrency.setText(transactionService.getCurrency());
+        this.expenseCurrency.setText(transactionService.getCurrency());
 
         this.contentBox.setPadding(new Insets(10));
         this.contentBox.setSpacing(10);
 
-        this.categoriesComboBox.getItems().addAll(service.getAllCategories());
+        this.accountComboBox.getItems().addAll(accounts);
+        this.categoriesComboBox.getItems().addAll(categories);
 
-        this.transactions = service.getAllTransactions();
+        this.accountComboBox.getItems().add(0, null);
+        this.accountComboBox.setValue(null);
+        this.categoriesComboBox.getItems().add(0, null);
+        this.categoriesComboBox.setValue(null);
 
-        renderList();
-        search();
+        loadTransactions();
         filter();
+        renderList();
+    }
+
+    private void loadTransactions() {
+        this.transactions = this.transactionService.getAllTransactions();
+        System.out.println("Loaded " + transactions.size() + " transactions");
+
+        if (transactions.isEmpty()) {
+            Label noDataLabel = new Label("No transactions found");
+            noDataLabel.setStyle("-fx-text-fill: #666; -fx-font-size: 14px;");
+            contentBox.getChildren().add(noDataLabel);
+        }
+
+        this.totalExpenses.setText(getTotalExpenses().toString());
+        this.totalIncome.setText(getTotalIncome().toString());
     }
 
     @FXML
@@ -87,7 +111,7 @@ public class DashboardController {
 
             Scene scene = new Scene(root);
             smallStage.setScene(scene);
-            smallStage.show();
+            smallStage.showAndWait();
 
             renderList();
         } catch (IOException e) {
@@ -97,13 +121,16 @@ public class DashboardController {
     }
 
     private void filter(){
+        this.accountComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.account = newValue;
+            renderList();
+        });
+
         this.categoriesComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             this.category = newValue;
             renderList();
         });
-    }
 
-    private void search(){
         this.searchTextField.textProperty().addListener((observable ,oldVal,newVal ) -> {
             this.search = newVal;
             renderList();
@@ -111,59 +138,96 @@ public class DashboardController {
     }
 
     public void renderList(){
+        this.transactions = this.transactionService.getAllTransactions();
         this.contentBox.getChildren().clear();
 
         for (Transaction t : transactions) {
             boolean matchesSearch = true;
             boolean matchesCategory = true;
+            boolean matchesAccount = true;
 
-            // Check search filter
             if (search != null && !search.isEmpty()) {
                 matchesSearch = t.getTransactionTitle().toLowerCase().contains(search.toLowerCase());
             }
 
-            // Check category filter
-            if (category != null && !category.isEmpty() && !category.equals("All")) {
-                matchesCategory = true; // change to match ID
+            if (account != null) {
+                matchesAccount = t.getAccountId() == account.getAccountId();
             }
 
-            if (matchesSearch && matchesCategory) {
+            if (category != null) {
+                matchesCategory = t.getCategoryId() == category.getId();
+            }
+
+            if (matchesSearch && matchesCategory && matchesAccount) {
                 this.contentBox.getChildren().add(transactionItem(t));
             }
         }
-
     }
-
     public HBox transactionItem(Transaction transaction){
         HBox row = new HBox(10);
-
-        int sharedWidth = 120;
         row.setPadding(new Insets(10));
         row.setStyle("-fx-border-color: lightgray; -fx-border-width: 0 0 1 0;");
+        row.setAlignment(Pos.CENTER_LEFT);
 
         Label titleLabel = new Label(transaction.getTransactionTitle());
         titleLabel.setStyle("-fx-text-fill: black;");
-        titleLabel.setPrefWidth(sharedWidth);
+        titleLabel.setPrefWidth(150);
 
         Label descLabel = new Label(transaction.getDescription());
         descLabel.setStyle("-fx-text-fill: black;");
-        descLabel.setPrefWidth(sharedWidth);
+        descLabel.setPrefWidth(200);
 
         Label typeLabel = new Label(transaction.getTransactionType().toString());
         typeLabel.setStyle("-fx-text-fill: black;");
-        typeLabel.setPrefWidth(sharedWidth);
+        typeLabel.setPrefWidth(100);
 
-        Label amountLabel = new Label(String.valueOf(transaction.getAmount()));
-        amountLabel.setStyle("-fx-text-fill: black;");
-        amountLabel.setPrefWidth(sharedWidth);
+        Label amountLabel = new Label(String.format("$%.2f", transaction.getAmount()));
+        if (transaction.getTransactionType() == TransactionType.EXPENSE) {
+            amountLabel.setStyle("-fx-text-fill: #dc3545; -fx-font-weight: bold;");
+        } else {
+            amountLabel.setStyle("-fx-text-fill: #28a745; -fx-font-weight: bold;");
+        }
+        amountLabel.setPrefWidth(120);
         amountLabel.setAlignment(Pos.CENTER_RIGHT);
 
         Label dateLabel = new Label(transaction.getTransactionDate().toString());
         dateLabel.setStyle("-fx-text-fill: black;");
-        dateLabel.setPrefWidth(sharedWidth);
+        dateLabel.setPrefWidth(120);
 
-        row.getChildren().addAll(titleLabel, descLabel, typeLabel, amountLabel, dateLabel);
+        Button deleteButton = new Button("Delete");
+        deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
+        deleteButton.setOnAction(event -> {
+            deleteTransaction(transaction);
+        });
+
+        row.getChildren().addAll(titleLabel, descLabel, typeLabel, amountLabel, dateLabel, deleteButton);
         row.setSpacing(10);
         return row;
+    }
+
+    private void deleteTransaction(Transaction transaction) {
+        //transactionService.deleteTransaction(transaction.);
+        //TODO
+        renderList();
+    }
+
+    private Double getTotalExpenses(){
+        double total = 0.00;
+        for(Transaction transaction : this.transactions){
+            if(transaction.getTransactionType() == TransactionType.EXPENSE){
+                total += transaction.getAmount();
+            }
+        }
+        return total;
+    }
+
+    private Double getTotalIncome(){
+        double total = 0.00;
+        for(Transaction transaction : this.transactions){
+            if(transaction.getTransactionType() == TransactionType.INCOME){
+                total += transaction.getAmount();
+            }
+        }
+        return total;
     }
 }

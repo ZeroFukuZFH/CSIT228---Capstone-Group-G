@@ -1,35 +1,34 @@
 package com.example.csit228capstone.controllers.income;
 
+import com.example.csit228capstone.data.Account;
+import com.example.csit228capstone.data.Category;
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
-import com.example.csit228capstone.services.DashboardService;
+import com.example.csit228capstone.services.AccountService;
+import com.example.csit228capstone.services.CategoryService;
+import com.example.csit228capstone.services.TransactionService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 public class IncomeController {
 
     @FXML
-    private DatePicker datePicker;
-
-    @FXML
     private BarChart<String, Number> incomeBarChart;
-    private XYChart.Series<String, Number> series;
-
+    private XYChart.Series series;
     @FXML
-    private ComboBox<String> categoryComboBox;
+    private ComboBox<Category> categoriesComboBox;
+    @FXML
+    private ComboBox<Account> accountComboBox;
 
     @FXML
     private TextField searchTextField;
@@ -37,91 +36,90 @@ public class IncomeController {
     @FXML
     private VBox incomeListView;
 
-    private String category;
+    private Category category;
+    private Account account;
     private String search;
 
-    private List<Transaction> incomes; // Changed from expenses to incomes
+    private List<Transaction> incomes;
 
-    DashboardService dashboardService;
+    private CategoryService categoryService;
+    private TransactionService transactionService;
+    private AccountService accountService;
 
     @FXML
     public void initialize() {
-        this.dashboardService = new DashboardService();
-        this.datePicker.setValue(LocalDate.now());
-        this.series = new XYChart.Series<>();
-        this.series.setName("INCOMES"); // Changed from EXPENSES to INCOMES
-        // TODO: Setup category combo box items
+        this.transactionService = new TransactionService();
+        this.accountService = new AccountService();
+        this.categoryService = new CategoryService();
+        this.accountComboBox.getItems().addAll(accountService.getAllAccounts());
+        this.categoriesComboBox.getItems().addAll(categoryService.getAllCategories());
 
-        // TODO: Setup category combo box listener
+        this.series = new XYChart.Series<>();
+        this.series.setName("INCOMES");
+
 
         renderList();
         renderChart();
-        search();
         filter();
     }
 
-    @FXML
-    private void onDayButtonClick() {
-        // TODO: Implement day view logic
-    }
-
-    @FXML
-    private void onWeekButtonClick() {
-        // TODO: Implement week view logic
-    }
-
-    @FXML
-    private void onMonthButtonClick() {
-        // TODO: Implement month view logic
-    }
-
-    @FXML
-    private void onYearButtonClick() {
-        // TODO: Implement year view logic
-    }
-
     private void filter(){
-        this.categoryComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+        this.accountComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.account = newValue;
+            renderList();
+        });
+
+        this.categoriesComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             this.category = newValue;
             renderList();
         });
-    }
 
-    private void search(){
-        this.searchTextField.textProperty().addListener((observable, oldVal, newVal) -> {
+        this.searchTextField.textProperty().addListener((observable ,oldVal,newVal ) -> {
             this.search = newVal;
             renderList();
         });
     }
 
     public void renderChart(){
-        if (incomes == null) return;
-
         this.series.getData().clear();
-        this.incomeBarChart.getData().clear();
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        for (Transaction income : this.incomes) {
-            String incomeDate = simpleDateFormat.format(income.getTransactionDate());
-            this.series.getData().add(new XYChart.Data<>(incomeDate, income.getAmount()));
+        for (Transaction income : this.incomes){
+            if (income.getTransactionType() == TransactionType.INCOME){
+                String incomeDate = simpleDateFormat.format(income.getTransactionDate());
+                this.series.getData().add(new XYChart.Data<>(incomeDate, income.getAmount()));
+            }
         }
         this.incomeBarChart.getData().add(this.series);
     }
 
     public void renderList(){
+        this.incomes = this.transactionService.getAllTransactions();
         this.incomeListView.getChildren().clear();
 
-        List<Transaction> allTransactions = dashboardService.getAllTransactions();
-        this.incomes = new java.util.ArrayList<>();
+        for (Transaction t : incomes) {
+            boolean matchesSearch = true;
+            boolean matchesCategory = true;
+            boolean matchesAccount = true;
 
-        for (Transaction transaction : allTransactions) {
-            if (transaction.getTransactionType() == TransactionType.INCOME) {
-                this.incomes.add(transaction);
-                incomeListView.getChildren().add(transactionItem(transaction));
+            if (search != null && !search.isEmpty()) {
+                matchesSearch = t.getTransactionTitle().toLowerCase().contains(search.toLowerCase());
+            }
+
+            if (account != null) {
+                matchesAccount = t.getAccountId() == account.getAccountId();
+            }
+
+            if (category != null) {
+                matchesCategory = t.getCategoryId() == category.getId();
+            }
+
+            if (matchesSearch && matchesCategory && matchesAccount) {
+
+                if(t.getTransactionType() == TransactionType.INCOME){
+                    this.incomeListView.getChildren().add(transactionItem(t));
+                }
             }
         }
-
-        renderChart(); // Update chart after loading data
     }
 
     public HBox transactionItem(Transaction transaction){
@@ -144,7 +142,7 @@ public class IncomeController {
         typeLabel.setPrefWidth(sharedWidth);
 
         Label amountLabel = new Label(String.valueOf(transaction.getAmount()));
-        amountLabel.setStyle("-fx-text-fill: green;"); // Changed to green for income
+        amountLabel.setStyle("-fx-text-fill: green;");
         amountLabel.setPrefWidth(sharedWidth);
         amountLabel.setAlignment(Pos.CENTER_RIGHT);
 

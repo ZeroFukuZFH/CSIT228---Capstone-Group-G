@@ -1,4 +1,4 @@
-package com.example.csit228capstone.services.data;
+package com.example.csit228capstone.services;
 
 import com.example.csit228capstone.session.Session;
 
@@ -60,7 +60,7 @@ public class UserService extends BaseService{
         int id = Integer.parseInt(Session.getInstance().getAttribute("id"));
 
         // First, check if category already exists
-        String checkSql = "SELECT category_id FROM category WHERE user_id = ? AND category_name = 'DEFAULT' LIMIT 1";
+        String checkSql = "SELECT category_id FROM category WHERE user_id = ? LIMIT 1";
         try (PreparedStatement checkStmt = super.connection.prepareStatement(checkSql)) {
             checkStmt.setInt(1, id);
             try (ResultSet rs = checkStmt.executeQuery()) {

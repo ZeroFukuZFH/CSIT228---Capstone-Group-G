@@ -29,15 +29,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                     <children>
-                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="770.0" spacing="10.0">
-                            <children>
-                                <DatePicker fx:id="datePicker" />
-                                <Button fx:id="dayButton" mnemonicParsing="false" onAction="#onDayButtonClick" text="day" />
-                                <Button fx:id="weekButton" mnemonicParsing="false" onAction="#onWeekButtonClick" text="week" />
-                                <Button fx:id="monthButton" mnemonicParsing="false" onAction="#onMonthButtonClick" text="month" />
-                                <Button fx:id="yearButton" mnemonicParsing="false" onAction="#onYearButtonClick" text="year" />
-                            </children>
-                        </HBox>
+
 
                         <BarChart fx:id="incomeBarChart" prefHeight="274.0" prefWidth="770.0">
                             <xAxis>
@@ -51,7 +43,8 @@
                         <HBox alignment="CENTER" prefHeight="65.0" prefWidth="770.0" spacing="20.0">
                             <children>
                                 <Label text="INCOME" textAlignment="CENTER" />
-                                <ComboBox fx:id="categoryComboBox" prefWidth="150.0" />
+                                <ComboBox fx:id="accountComboBox" prefWidth="150.0" promptText="Select Account" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
+                                <ComboBox fx:id="categoriesComboBox" prefWidth="150.0" promptText="Select Category" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
                                 <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="404.0" promptText="Search by title..." HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>

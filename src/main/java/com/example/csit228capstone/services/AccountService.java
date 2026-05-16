@@ -1,12 +1,10 @@
-package com.example.csit228capstone.services.data;
+package com.example.csit228capstone.services;
 
 import com.example.csit228capstone.data.Account;
-import com.example.csit228capstone.session.Session;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,16 +36,18 @@ public class AccountService extends BaseService {
 
     public List<Account> getAllAccounts(){
         List<Account> accounts = new ArrayList<>();
-        String sql = "SELECT account_name, current_balance FROM account WHERE user_id=? ORDER BY created_at DESC";
+        String sql = "SELECT account_id,account_name, current_balance FROM account WHERE user_id=? ORDER BY created_at DESC";
 
         try(PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
             pstmt.setInt(1, getCurrentUserId());
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()){
-                Account account = new Account();
-                account.setAccountName(resultSet.getString("account_name"));
-                account.setCurrentBalance(resultSet.getDouble("current_balance"));
+                Account account = new Account(
+                        resultSet.getInt("account_id"),
+                        resultSet.getString("account_name"),
+                        resultSet.getDouble("current_balance")
+                );
                 accounts.add(account);
             }
         } catch (SQLException e) {

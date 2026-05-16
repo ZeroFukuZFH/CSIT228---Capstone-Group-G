@@ -1,6 +1,6 @@
 package com.example.csit228capstone.controllers.login;
 
-import com.example.csit228capstone.services.data.UserService;
+import com.example.csit228capstone.services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

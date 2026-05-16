@@ -8,6 +8,12 @@ public class Account {
     private Double currentBalance;
     private Date createdAt;
 
+    public Account(int accountId, String accountName, Double currentBalance){
+        this.accountName = accountName;
+        this.accountId = accountId;
+        this.currentBalance = currentBalance;
+    }
+
     public int getAccountId() {
         return accountId;
     }
@@ -34,5 +40,10 @@ public class Account {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return accountName;
     }
 }

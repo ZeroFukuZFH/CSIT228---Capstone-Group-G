@@ -16,6 +16,9 @@
     <Label text="Title:"/>
     <TextField fx:id="titleField" promptText="Enter title"/>
 
+    <Label text="Description:"/>
+    <TextField fx:id="descriptionField" promptText="Enter description"/>
+
     <Label text="Amount:"/>
     <TextField fx:id="amountField" promptText="Enter amount"/>
 

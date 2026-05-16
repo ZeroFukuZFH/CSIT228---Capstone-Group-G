@@ -1,9 +1,12 @@
 package com.example.csit228capstone.controllers.expenses;
 
+import com.example.csit228capstone.data.Account;
+import com.example.csit228capstone.data.Category;
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
-import com.example.csit228capstone.services.DashboardService;
-import com.example.csit228capstone.services.ExpenseService;
+import com.example.csit228capstone.services.AccountService;
+import com.example.csit228capstone.services.CategoryService;
+import com.example.csit228capstone.services.TransactionService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,13 +23,12 @@ import java.util.*;
 public class ExpensesController {
 
     @FXML
-    private DatePicker datePicker;
-
-    @FXML
     private BarChart<String, Number> expensesBarChart;
     private XYChart.Series series;
     @FXML
-    private ComboBox<String> categoryComboBox;
+    private ComboBox<Category> categoriesComboBox;
+    @FXML
+    private ComboBox<Account> accountComboBox;
 
     @FXML
     private TextField searchTextField;
@@ -34,80 +36,85 @@ public class ExpensesController {
     @FXML
     private VBox expensesListView;
 
-    private String category;
+    private Category category;
+    private Account account;
     private String search;
 
-    List<Transaction> expenses;
+    private List<Transaction> expenses;
 
-    DashboardService dashboardService;
+    private CategoryService categoryService;
+    private TransactionService transactionService;
+    private AccountService accountService;
     @FXML
     public void initialize() {
-        this.dashboardService = new DashboardService();
-        this.datePicker.setValue(LocalDate.now());
+        this.transactionService = new TransactionService();
+        this.accountService = new AccountService();
+        this.categoryService = new CategoryService();
+        this.accountComboBox.getItems().addAll(accountService.getAllAccounts());
+        this.categoriesComboBox.getItems().addAll(categoryService.getAllCategories());
+
         this.series = new XYChart.Series<>();
         this.series.setName("EXPENSES");
-        // TODO: Setup category combo box items
-
-        // TODO: Setup category combo box listener
-
 
         renderList();
         renderChart();
-        search();
         filter();
-
     }
-
-    @FXML
-    private void onDayButtonClick() {
-        // TODO: Implement day view logic
-    }
-
-    @FXML
-    private void onWeekButtonClick() {
-        // TODO: Implement week view logic
-    }
-
-    @FXML
-    private void onMonthButtonClick() {
-        // TODO: Implement month view logic
-    }
-
-    @FXML
-    private void onYearButtonClick() {
-        // TODO: Implement year view logic
-    }
-
     private void filter(){
-        this.categoryComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+        this.accountComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.account = newValue;
+            renderList();
+        });
+
+        this.categoriesComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             this.category = newValue;
             renderList();
         });
-    }
 
-    private void search(){
         this.searchTextField.textProperty().addListener((observable ,oldVal,newVal ) -> {
             this.search = newVal;
             renderList();
         });
     }
 
+
     public void renderChart(){
         this.series.getData().clear();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy");
         for (Transaction expense : this.expenses){
-            String expenseDate = simpleDateFormat.format(expense.getTransactionDate());
-            this.series.getData().add(new XYChart.Data<>(expenseDate,expense.getAmount()));
+            if (expense.getTransactionType() == TransactionType.EXPENSE){
+                String expenseDate = simpleDateFormat.format(expense.getTransactionDate());
+                this.series.getData().add(new XYChart.Data<>(expenseDate,expense.getAmount()));
+            }
         }
         this.expensesBarChart.getData().add(this.series);
-
     }
 
     public void renderList(){
-        this.expenses = dashboardService.getAllTransactions();
-        for (Transaction expense : expenses){
-            if (expense.getTransactionType() == TransactionType.EXPENSE){
-                expensesListView.getChildren().add(transactionItem(expense));
+        this.expenses = this.transactionService.getAllTransactions();
+        this.expensesListView.getChildren().clear();
+
+        for (Transaction t : expenses) {
+            boolean matchesSearch = true;
+            boolean matchesCategory = true;
+            boolean matchesAccount = true;
+
+            if (search != null && !search.isEmpty()) {
+                matchesSearch = t.getTransactionTitle().toLowerCase().contains(search.toLowerCase());
+            }
+
+            if (account != null) {
+                matchesAccount = t.getAccountId() == account.getAccountId();
+            }
+
+            if (category != null) {
+                matchesCategory = t.getCategoryId() == category.getId();
+            }
+
+            if (matchesSearch && matchesCategory && matchesAccount) {
+                if(t.getTransactionType() == TransactionType.EXPENSE){
+                    this.expensesListView.getChildren().add(transactionItem(t));
+                }
             }
         }
     }
@@ -131,7 +138,7 @@ public class ExpensesController {
         typeLabel.setPrefWidth(sharedWidth);
 
         Label amountLabel = new Label(String.valueOf(transaction.getAmount()));
-        amountLabel.setStyle("-fx-text-fill: black;");
+        amountLabel.setStyle("-fx-text-fill: red;");
         amountLabel.setPrefWidth(sharedWidth);
         amountLabel.setAlignment(Pos.CENTER_RIGHT);
 
