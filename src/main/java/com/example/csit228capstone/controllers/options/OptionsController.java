@@ -2,8 +2,9 @@ package com.example.csit228capstone.controllers.options;
 
 import com.example.csit228capstone.data.Transaction;
 import com.example.csit228capstone.data.TransactionType;
-import com.example.csit228capstone.services.OptionService;
+import com.example.csit228capstone.services.data.OptionService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
@@ -34,7 +35,6 @@ public class OptionsController {
     private void initialize() {
         String[] currency = {"USD", "PHP", "EUR", "GBP", "JPY"};
         defaultCurrencyComboBox.getItems().addAll(currency);
-        defaultCurrencyComboBox.setValue(currency[0]);
         this.optionService = new OptionService();
     }
 
@@ -140,8 +140,25 @@ public class OptionsController {
 
     @FXML
     private void handleDefaultCurrency() {
-        // Handle default currency change
-        System.out.println("Default currency button clicked");
-        // TODO: Open dialog to select default currency
+        String selectedCurrency = defaultCurrencyComboBox.getValue();
+
+        if (selectedCurrency != null && !selectedCurrency.isEmpty()) {
+
+            optionService.setCurrency(selectedCurrency);
+
+            System.out.println("Default currency set to: " + selectedCurrency);
+            showAlert(Alert.AlertType.INFORMATION, "Currency Updated", "Default currency has been set to: " + selectedCurrency);
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection",
+                    "Please select a currency before saving.");
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
