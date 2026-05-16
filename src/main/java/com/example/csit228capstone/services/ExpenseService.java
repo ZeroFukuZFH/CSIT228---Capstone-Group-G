@@ -40,8 +40,8 @@ public class ExpenseService extends Database implements IExpenseService {
         }
     }
 
-    @Override
-    public Map<Date, Double> getExpenses(){
+
+    public Map<Date, Double> getAllExpenses(){
         Map<Date, Double> expenses = new HashMap<>();
 
         String sql = """
