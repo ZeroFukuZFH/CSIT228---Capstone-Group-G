@@ -8,9 +8,9 @@
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
       style="-fx-background-color: white; -fx-padding: 20;"
-      fx:controller="com.example.csit228capstone.controllers.categories.NewCategoryController">
+      fx:controller="com.example.csit228capstone.controllers.categories.EditCategoryController">
 
-    <Label text="New Category" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <Label text="Edit Category" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
     <Separator/>
 
     <Label text="Category Name:"/>
