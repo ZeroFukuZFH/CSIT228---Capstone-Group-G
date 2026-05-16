@@ -1,6 +1,6 @@
 package com.example.csit228capstone.controllers.login;
 
-import com.example.csit228capstone.services.LoginService;
+import com.example.csit228capstone.services.data.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,6 +21,13 @@ public class LoginController {
     private TextField lnameField;
     @FXML
     private PasswordField passwordField;
+
+    private UserService userService;
+
+    @FXML
+    private void initialize(){
+        this.userService = new UserService();
+    }
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
         String fname = fnameField.getText();
@@ -32,8 +39,7 @@ public class LoginController {
             return;
         }
 
-        LoginService loginService = new LoginService();
-        boolean status = loginService.login(fname,lname,password);
+        boolean status = this.userService.login(fname,lname,password);
 
         if (status) {
             System.out.println("Login Success! Redirecting to Dashboard...");

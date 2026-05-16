@@ -1,6 +1,6 @@
 package com.example.csit228capstone.controllers.register;
 
-import com.example.csit228capstone.services.RegisterService;
+import com.example.csit228capstone.services.data.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,6 +20,12 @@ public class RegistrationController {
     private TextField lnameField;
     @FXML
     private PasswordField passwordField;
+
+    private UserService userService;
+    @FXML
+    private void initialize(){
+        this.userService = new UserService();
+    }
     @FXML
     private void handleRegistration(ActionEvent event) throws IOException {
         String fname = fnameField.getText();
@@ -30,8 +36,7 @@ public class RegistrationController {
             showError("Fields should not be empty");
         }
 
-        RegisterService registerService = new RegisterService();
-        registerService.register(fname,lname,password);
+        this.userService.register(fname,lname,password);
 
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/csit228capstone/screens/Dashboard.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
