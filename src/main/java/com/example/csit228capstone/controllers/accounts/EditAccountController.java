@@ -1,6 +1,6 @@
 package com.example.csit228capstone.controllers.accounts;
 
-import com.example.csit228capstone.services.AccountService;
+import com.example.csit228capstone.services.data.AccountService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

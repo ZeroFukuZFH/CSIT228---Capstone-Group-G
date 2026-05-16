@@ -1,21 +1,16 @@
-package com.example.csit228capstone.services;
+package com.example.csit228capstone.services.data;
 
-import com.example.csit228capstone.Database.Database;
 import com.example.csit228capstone.data.Account;
 import com.example.csit228capstone.session.Session;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountService extends Database {
-    private int defaultId;
-    public AccountService() {
-        super();
-    }
-
+public class AccountService extends BaseService {
     public void addAccount(String accountName, Double initialBalance){
         String sql = "INSERT INTO account (user_id, account_name, current_balance) VALUES (?, ?, ?)";
         try(PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
@@ -61,15 +56,6 @@ public class AccountService extends Database {
 
         return accounts;
     }
-
-    private int getCurrentUserId() {
-        String id = Session.getInstance().getAttribute("id");
-        if (id == null) {
-            throw new IllegalStateException("No logged-in user found in session.");
-        }
-        return Integer.parseInt(id);
-    }
-
     public void deleteAccount(String accountName) {
         String sql = "DELETE FROM account WHERE account_name = ? AND user_id = ?";
         try (PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
@@ -80,4 +66,5 @@ public class AccountService extends Database {
             throw new RuntimeException(e);
         }
     }
+
 }
