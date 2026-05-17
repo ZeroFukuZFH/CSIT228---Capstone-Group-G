@@ -23,7 +23,7 @@ public class NewAccountController {
     private void handleSave(ActionEvent event) {
         try {
             String name = accountNameField.getText();
-            Double balance = Double.parseDouble(accountBalanceField.getText());
+            double balance = Double.parseDouble(accountBalanceField.getText());
 
             if (name.isEmpty()) {
                 showError("Account name cannot be empty");

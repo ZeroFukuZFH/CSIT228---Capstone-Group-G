@@ -34,11 +34,9 @@ public class AccountsController {
     private AccountService accountService;
 
     List<Account> accounts;
-    private int currentUserId;
 
     @FXML
     public void initialize() {
-        this.currentUserId = Integer.parseInt(Session.getInstance().getAttribute("id"));
         this.accountService = new AccountService();
         renderAccounts();
     }

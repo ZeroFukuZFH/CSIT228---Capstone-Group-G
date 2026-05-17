@@ -20,36 +20,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-
-// Same structure sa AccountsController.
 public class CategoriesController {
-
     @FXML
     private Button addCategoryBtn;
-
     @FXML
-    private VBox categoryListContainer; // holds all rows
-
+    private VBox categoryListContainer;
     private CategoryService categoryService;
-
-    List<Category> categories; // growable list nato
-
-
+    List<Category> categories;
     @FXML
     public void initialize() {
         this.categoryService = new CategoryService();
         renderCategories();
     }
-
-    // button
-
     @FXML
     private void handleAddCategory(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/com/example/csit228capstone/screens/NewCategoryDialogue.fxml"));
         try {
             Parent root = loader.load();
-
             Stage dialog = new Stage();
             dialog.setTitle("Add New Category");
             dialog.setWidth(400);
@@ -72,29 +60,22 @@ public class CategoriesController {
             categoryListContainer.getChildren().add(buildCategoryRow(category.getName()));
         }
     }
-
-
-     // Row section
     private HBox buildCategoryRow(String categoryName) {
         HBox row = new HBox(10);
         row.setPadding(new Insets(10));
         row.setStyle("-fx-border-color: lightgray; -fx-border-width: 0 0 1 0;");
         row.setAlignment(Pos.CENTER_LEFT);
 
-
         Label nameLabel = new Label(categoryName);
         nameLabel.setStyle("-fx-text-fill: black;");
         nameLabel.setPrefWidth(200);
 
-
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-
 
         Button editButton = new Button("Edit");
         editButton.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-padding: 5 15 5 15; -fx-background-radius: 5;");
         editButton.setOnAction(event -> handleEditCategory(categoryName));
-
 
         Button deleteButton = new Button("Delete");
         deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-padding: 5 15 5 15; -fx-background-radius: 5;");
@@ -103,9 +84,6 @@ public class CategoriesController {
         row.getChildren().addAll(nameLabel, spacer, editButton, deleteButton);
         return row;
     }
-
-
-    // edit page
     private void handleEditCategory(String categoryName) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/com/example/csit228capstone/screens/EditCategoryDialogue.fxml"));
@@ -123,13 +101,12 @@ public class CategoriesController {
             dialog.setScene(new Scene(root));
             dialog.showAndWait();
 
-            renderCategories(); // refresh list
+            renderCategories();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-   //delete
     private void handleDeleteCategory(String categoryName) {
         categoryService.deleteCategory(categoryName);
         renderCategories();

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Transaction {
+    private int transactionId;
     private int categoryId;
     private int accountId;
 
@@ -13,7 +14,7 @@ public class Transaction {
     private TransactionType transactionType;
     private double amount;
 
-    public Transaction( int accountId,int categoryId, String transactionTitle, String description, TransactionType transactionType, double amount) {
+    public Transaction(int accountId,int categoryId, String transactionTitle, String description, TransactionType transactionType, double amount) {
         this.accountId = accountId;
         this.categoryId = categoryId;
         this.transactionTitle = transactionTitle;
@@ -31,6 +32,14 @@ public class Transaction {
         this.transactionDate = transactionDate;
         this.description = description;
         this.transactionType = transactionType;
+    }
+
+    public int getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
     }
 
     public int getAccountId() {

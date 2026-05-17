@@ -65,7 +65,6 @@ public class UserService extends BaseService{
             checkStmt.setInt(1, id);
             try (ResultSet rs = checkStmt.executeQuery()) {
                 if (rs.next()) {
-                    // Category already exists, return existing ID
                     int existingId = rs.getInt("category_id");
                     System.out.println("Default category already exists for user: " + id + " with ID: " + existingId);
                     return existingId;
@@ -73,14 +72,12 @@ public class UserService extends BaseService{
             }
         }
 
-        // If we get here, no category exists, so create it
         String sql = "INSERT INTO category (category_name, user_id) VALUES (?, ?)";
         try (PreparedStatement pstmt = super.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, "DEFAULT");
             pstmt.setInt(2, id);
             pstmt.executeUpdate();
 
-            // Get the generated category ID
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int newId = generatedKeys.getInt(1);
@@ -96,21 +93,17 @@ public class UserService extends BaseService{
     private int createDefaultAccount() throws SQLException {
         int id = Integer.parseInt(Session.getInstance().getAttribute("id"));
 
-        // Check if account already exists and get its ID
         String checkSql = "SELECT account_id FROM account WHERE user_id = ? LIMIT 1";
         try (PreparedStatement checkStmt = super.connection.prepareStatement(checkSql)) {
             checkStmt.setInt(1, id);
             try (ResultSet rs = checkStmt.executeQuery()) {
                 if (rs.next()) {
-                    // Account already exists, return existing ID
                     int existingId = rs.getInt("account_id");
                     System.out.println("Account already exists for user: " + id + " with ID: " + existingId);
                     return existingId;
                 }
             }
         }
-
-        // Create new account
         String sql = "INSERT INTO account (user_id, account_name, current_balance) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = super.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, id);
@@ -118,7 +111,6 @@ public class UserService extends BaseService{
             pstmt.setDouble(3, 0.00);
             pstmt.executeUpdate();
 
-            // Get the generated account ID
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int newId = generatedKeys.getInt(1);

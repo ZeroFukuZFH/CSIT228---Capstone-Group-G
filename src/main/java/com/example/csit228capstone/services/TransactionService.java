@@ -10,7 +10,7 @@ import java.util.List;
 public class TransactionService extends BaseService{
     public List<Transaction> getAllTransactions(){
         List<Transaction> transactions = new ArrayList<>();
-        String sql = "SELECT account_id,category_id,transaction_type, amount, description, transaction_date, transaction_title FROM transaction WHERE user_id=?";
+        String sql = "SELECT transaction_id,account_id,category_id,transaction_type, amount, description, transaction_date, transaction_title FROM transaction WHERE user_id=?";
         try (PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, super.getCurrentUserId());
@@ -26,6 +26,7 @@ public class TransactionService extends BaseService{
                         TransactionType.valueOf(resultSet.getString("transaction_type")),
                         resultSet.getDouble("amount")
                 );
+                transaction.setTransactionId(resultSet.getInt("transaction_id"));
                 transactions.add(transaction);
             }
         } catch (SQLException e) {

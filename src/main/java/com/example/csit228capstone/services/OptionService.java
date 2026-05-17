@@ -8,7 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
+import java.util.concurrent.*;
+import java.util.Collections;
 
 public class OptionService extends BaseService {
 
@@ -78,29 +84,52 @@ public class OptionService extends BaseService {
         }
     }
 
-    public List<Transaction> exportCsv(){
-        List<Transaction> transactions = new ArrayList<>();
+
+
+    public List<Transaction> exportCsv() {
+        List<Transaction> transactions = Collections.synchronizedList(new ArrayList<>());
         String sql = "SELECT transaction_type, amount, description, transaction_date, transaction_title FROM transaction WHERE account_id=? AND category_id=? AND user_id=?";
+
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
+
         try (PreparedStatement pstmt = super.connection.prepareStatement(sql)) {
             pstmt.setInt(1, super.getDefaultAccountId());
             pstmt.setInt(2, super.getDefaultCategoryId());
             pstmt.setInt(3, super.getCurrentUserId());
+
             ResultSet resultSet = pstmt.executeQuery();
-            while (resultSet.next()){
-                Transaction transaction = new Transaction(
-                        getDefaultAccountId(),
-                        getDefaultCategoryId(),
-                        resultSet.getString("transaction_title"),
-                        resultSet.getString("description"),
-                        resultSet.getDate("transaction_date"),
-                        TransactionType.valueOf(resultSet.getString("transaction_type")),
-                        resultSet.getDouble("amount")
-                );
-                transactions.add(transaction);
+
+            while (resultSet.next()) {
+                final int accountId = super.getDefaultAccountId();
+                final int categoryId = super.getDefaultCategoryId();
+                final String title = resultSet.getString("transaction_title");
+                final String description = resultSet.getString("description");
+                final Date date = resultSet.getDate("transaction_date");
+                final TransactionType type = TransactionType.valueOf(resultSet.getString("transaction_type"));
+                final double amount = resultSet.getDouble("amount");
+
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                    Transaction transaction = new Transaction(accountId, categoryId, title, description, date, type, amount);
+                    transactions.add(transaction);
+                }, executor);
+
+                futures.add(future);
             }
+
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
         } catch (SQLException e) {
             System.err.println("SQL Error: " + e.getMessage());
+        } finally {
+            executor.shutdown();
+            try {
+                executor.awaitTermination(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+            }
         }
+
         return transactions;
     }
 }

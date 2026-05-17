@@ -206,8 +206,7 @@ public class DashboardController {
     }
 
     private void deleteTransaction(Transaction transaction) {
-        //transactionService.deleteTransaction(transaction.);
-        //TODO
+        transactionService.deleteTransaction(transaction.getTransactionId());
         renderList();
     }
 
