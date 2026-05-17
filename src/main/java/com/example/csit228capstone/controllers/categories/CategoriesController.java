@@ -95,8 +95,6 @@ public class CategoriesController {
 
             Stage dialog = new Stage();
             dialog.setTitle("Edit Category");
-            dialog.setWidth(400);
-            dialog.setHeight(300);
             dialog.setResizable(false);
             dialog.setScene(new Scene(root));
             dialog.showAndWait();

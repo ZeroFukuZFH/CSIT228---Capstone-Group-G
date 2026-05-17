@@ -16,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -105,9 +107,6 @@ public class DashboardController {
             Parent root = loader.load();
             Stage smallStage = new Stage();
             smallStage.setTitle("Add New Transaction");
-            smallStage.setWidth(400);
-            smallStage.setHeight(500);
-            smallStage.setResizable(false);
 
             Scene scene = new Scene(root);
             smallStage.setScene(scene);
@@ -172,14 +171,17 @@ public class DashboardController {
         Label titleLabel = new Label(transaction.getTransactionTitle());
         titleLabel.setStyle("-fx-text-fill: black;");
         titleLabel.setPrefWidth(150);
+        HBox.setHgrow(titleLabel, Priority.NEVER);
 
         Label descLabel = new Label(transaction.getDescription());
         descLabel.setStyle("-fx-text-fill: black;");
         descLabel.setPrefWidth(200);
+        HBox.setHgrow(descLabel, Priority.NEVER);
 
         Label typeLabel = new Label(transaction.getTransactionType().toString());
         typeLabel.setStyle("-fx-text-fill: black;");
         typeLabel.setPrefWidth(100);
+        HBox.setHgrow(typeLabel, Priority.NEVER);
 
         Label amountLabel = new Label(String.format("$%.2f", transaction.getAmount()));
         if (transaction.getTransactionType() == TransactionType.EXPENSE) {
@@ -189,19 +191,25 @@ public class DashboardController {
         }
         amountLabel.setPrefWidth(120);
         amountLabel.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(amountLabel, Priority.NEVER);
 
         Label dateLabel = new Label(transaction.getTransactionDate().toString());
         dateLabel.setStyle("-fx-text-fill: black;");
         dateLabel.setPrefWidth(120);
+        HBox.setHgrow(dateLabel, Priority.NEVER);
 
         Button deleteButton = new Button("Delete");
         deleteButton.setStyle("-fx-background-color: #dc3545; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;");
         deleteButton.setOnAction(event -> {
             deleteTransaction(transaction);
         });
+        deleteButton.setMinWidth(70); // Ensure minimum width
+        HBox.setHgrow(deleteButton, Priority.ALWAYS); // Give delete button priority to grow
 
         row.getChildren().addAll(titleLabel, descLabel, typeLabel, amountLabel, dateLabel, deleteButton);
-        row.setSpacing(10);
+
+        row.setMinWidth(Region.USE_COMPUTED_SIZE);
+
         return row;
     }
 

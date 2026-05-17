@@ -50,8 +50,6 @@ public class AccountsController {
 
             Stage smallStage = new Stage();
             smallStage.setTitle("Add New Transaction");
-            smallStage.setWidth(400);
-            smallStage.setHeight(300);
             smallStage.setResizable(false);
 
             Scene scene = new Scene(root);

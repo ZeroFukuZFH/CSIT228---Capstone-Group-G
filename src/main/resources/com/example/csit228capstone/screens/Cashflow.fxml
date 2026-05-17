@@ -6,7 +6,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -28,7 +27,7 @@
                     <children>
                         <Label text="Cash Flow Timeline Comparison" textFill="#333333">
                             <font><Font name="System Bold" size="16.0" /></font>
-                            <VBox.margin><Insets left="10.0" bottom="5.0"/></VBox.margin>
+                            <VBox.margin><Insets bottom="5.0" left="10.0" /></VBox.margin>
                         </Label>
                         <BarChart fx:id="cashflowBarChart" animated="false" VBox.vgrow="ALWAYS">
                             <xAxis>
@@ -44,29 +43,29 @@
                 <HBox spacing="20.0" VBox.vgrow="ALWAYS">
                     <children>
 
-                        <VBox prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">
+                        <VBox prefHeight="330.0" prefWidth="394.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">
                             <padding>
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                             </padding>
                             <children>
                                 <Label text="Total Income Breakdown" textFill="#333333">
                                     <font><Font name="System Bold" size="15.0" /></font>
-                                    <VBox.margin><Insets left="5.0" bottom="10.0"/></VBox.margin>
+                                    <VBox.margin><Insets bottom="10.0" left="5.0" /></VBox.margin>
                                 </Label>
                                 <PieChart fx:id="cashflowIncomePieChart" animated="false" VBox.vgrow="ALWAYS" />
                             </children>
                         </VBox>
 
-                        <VBox prefWidth="350.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">
+                        <VBox prefHeight="348.0" prefWidth="407.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">
                             <padding>
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                             </padding>
                             <children>
                                 <Label text="Total Expenses Breakdown" textFill="#333333">
                                     <font><Font name="System Bold" size="15.0" /></font>
-                                    <VBox.margin><Insets left="5.0" bottom="10.0"/></VBox.margin>
+                                    <VBox.margin><Insets bottom="10.0" left="5.0" /></VBox.margin>
                                 </Label>
-                                <PieChart fx:id="cashflowExpensesPieChart" animated="false" VBox.vgrow="ALWAYS" />
+                                <PieChart fx:id="cashflowExpensesPieChart" animated="false" prefWidth="333.0" VBox.vgrow="ALWAYS" />
                             </children>
                         </VBox>
 

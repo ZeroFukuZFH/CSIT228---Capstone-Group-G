@@ -78,9 +78,9 @@
                                 <HBox alignment="CENTER" prefHeight="51.0" prefWidth="770.0" spacing="20.0">
                                     <children>
                                         <Label style="-fx-text-fill: #333; -fx-font-weight: bold; -fx-font-size: 18px;" text="TRANSACTIONS" />
-                                        <ComboBox fx:id="accountComboBox" prefWidth="150.0" promptText="Select Account" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
-                                        <ComboBox fx:id="categoriesComboBox" prefWidth="150.0" promptText="Select Category" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
-                                        <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="312.0" promptText="Search Transactions" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
+                                        <ComboBox fx:id="accountComboBox" prefHeight="27.0" prefWidth="123.0" promptText="Select Account" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
+                                        <ComboBox fx:id="categoriesComboBox" prefHeight="27.0" prefWidth="125.0" promptText="Select Category" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
+                                        <TextField fx:id="searchTextField" prefHeight="27.0" prefWidth="160.0" promptText="Search Transactions" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #ddd;" />
                                         <Button onAction="#onAddTransactionClick" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-background-radius: 5; -fx-cursor: hand;" text="add new transaction" />
                                     </children>
                                 </HBox>
